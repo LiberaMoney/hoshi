@@ -3,112 +3,114 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>星読みカルテ ✦ Libera Finance Works</title>
+<title>星のミニ鑑定 ✦ Libera Finance Works</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-height:100vh;}
-.app{max-width:560px;margin:0 auto;padding:0 0 3rem;}
-.hdr{text-align:center;padding:1.75rem 1.5rem 1.25rem;border-bottom:2px solid #c8922a;background:#fff;margin-bottom:1.5rem;}
-.hdr h1{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:500;letter-spacing:2px;margin-bottom:5px;}
-.hdr p{font-size:11px;color:#a08060;letter-spacing:2px;}
-.tabs{display:flex;border-bottom:1px solid #e0d8cc;background:#fff;margin-bottom:1.5rem;}
-.tab{flex:1;padding:12px 8px;text-align:center;font-size:12px;letter-spacing:1px;cursor:pointer;color:#b0a090;border-bottom:2px solid transparent;transition:all .2s;}
-.tab.active{color:#c8922a;border-bottom:2px solid #c8922a;font-weight:500;}
-.panel{display:none;padding:0 1rem;}
+body{background:#0a0608;font-family:'Noto Serif JP',serif;color:#f0e6c8;min-height:100vh;}
+.app{max-width:480px;margin:0 auto;padding:0 0 3rem;}
+.hdr{text-align:center;padding:2rem 1.5rem 1.25rem;border-bottom:1px solid #3a2010;background:#120808;position:relative;}
+.hdr::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8922a,transparent);}
+.hdr-brand{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;color:#c8922a;margin-bottom:6px;}
+.hdr-title{font-size:22px;font-weight:300;letter-spacing:3px;color:#f0e6c8;margin-bottom:4px;}
+.hdr-sub{font-size:12px;color:#8a7060;letter-spacing:1px;}
+.tabs{display:flex;border-bottom:1px solid #2a1408;background:#0e0806;}
+.tab{flex:1;padding:13px 8px;text-align:center;font-size:12px;letter-spacing:1.5px;font-family:'Cinzel',serif;cursor:pointer;color:#5a3818;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:#c8922a;border-bottom:2px solid #c8922a;}
+.panel{display:none;padding:1.5rem;}
 .panel.active{display:block;}
-.form-card{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;padding:1.25rem;margin-bottom:1rem;}
-.form-card h2{font-size:13px;font-weight:500;color:#c8922a;letter-spacing:1px;margin-bottom:1rem;padding-bottom:8px;border-bottom:0.5px solid #e8e0d4;}
-.form-card h2 span{font-size:11px;color:#b0a090;font-weight:400;margin-left:6px;}
-.frow{display:grid;gap:10px;margin-bottom:10px;}
-.frow.two{grid-template-columns:1fr 1fr;}
-.frow.three{grid-template-columns:2fr 1fr 1fr;}
-.frow.one{grid-template-columns:1fr;}
-.fgroup label{display:block;font-size:11px;color:#a08060;margin-bottom:4px;letter-spacing:1px;}
-.fgroup input,.fgroup select{width:100%;padding:9px 11px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:14px;font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1a1612;outline:none;-webkit-appearance:none;}
-.fgroup input:focus,.fgroup select:focus{border-color:#c8922a;}
-.fgroup input::placeholder{color:#c8c0b4;}
-.fgroup select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a08060' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;}
-.result-box{margin-top:1rem;padding:12px 14px;background:#fdf8f0;border:1px solid #e8d8a0;border-radius:8px;display:none;}
+.flabel{display:block;font-size:11px;letter-spacing:2px;color:#c8922a;margin-bottom:6px;font-family:'Cinzel',serif;text-transform:uppercase;}
+.finput{width:100%;background:#160c08;border:1px solid #2a1408;border-radius:4px;padding:11px 13px;color:#f0e6c8;font-size:16px;font-family:'Noto Serif JP',serif;outline:none;-webkit-appearance:none;}
+.finput:focus{border-color:#c8922a;}
+.finput::placeholder{color:#3a2010;}
+.fselect{width:100%;background:#160c08;border:1px solid #2a1408;border-radius:4px;padding:11px 13px;color:#f0e6c8;font-size:15px;font-family:'Noto Serif JP',serif;outline:none;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c8922a' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;}
+.fselect:focus{border-color:#c8922a;}
+.fgroup{margin-bottom:1rem;}
+.date-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;}
+.two-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+/* 星座判定結果 */
+.result-box{margin-top:1rem;padding:12px 14px;background:#160c08;border:1px solid #3a2010;border-radius:6px;display:none;}
 .result-box.show{display:block;}
-.result-box .rb-title{font-size:11px;color:#c8922a;letter-spacing:2px;margin-bottom:8px;}
-.result-signs{display:flex;gap:12px;}
-.result-sign{flex:1;text-align:center;padding:10px 8px;background:#fff;border-radius:6px;border:0.5px solid #e8d8a0;}
-.result-sign .rs-lbl{font-size:10px;color:#a08060;letter-spacing:1px;margin-bottom:4px;}
-.result-sign .rs-emo{font-size:22px;margin-bottom:2px;}
-.result-sign .rs-name{font-size:14px;font-weight:500;color:#1a1612;}
-.result-sign .rs-en{font-size:10px;color:#b0a090;margin-top:1px;}
+.rb-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#c8922a;margin-bottom:10px;}
+.result-signs{display:flex;gap:10px;}
+.result-sign{flex:1;text-align:center;padding:10px 6px;background:#0e0806;border-radius:4px;border:1px solid #2a1408;}
+.rs-lbl{font-size:10px;color:#c8922a;font-family:'Cinzel',serif;letter-spacing:1px;margin-bottom:4px;}
+.rs-emo{font-size:22px;margin-bottom:2px;}
+.rs-name{font-size:14px;color:#f0e6c8;}
+.rs-en{font-size:10px;color:#5a4030;font-family:'Cinzel',serif;margin-top:2px;}
+.info-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:4px;vertical-align:middle;}
+.badge-auto{background:#1a2e1a;color:#6ab86a;}
+.badge-manual{background:#2e1a08;color:#c8922a;}
 .moon-manual{margin-top:10px;display:none;}
 .moon-manual.show{display:block;}
-.moon-manual-hint{font-size:11px;color:#9a7040;padding:7px 10px;background:#fff8ee;border-radius:4px;border-left:2px solid #e8a020;margin-bottom:8px;line-height:1.7;}
+.moon-manual-hint{font-size:11px;color:#9a7040;padding:7px 10px;background:#1a0d08;border-radius:4px;border-left:2px solid #c8922a;margin-bottom:8px;line-height:1.7;}
 .moon-manual-hint a{color:#c8922a;}
-.info-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;}
-.badge-auto{background:#e8f4e8;color:#4a8a4a;}
-.badge-manual{background:#fdf0d8;color:#a07020;}
-.btn-main{width:100%;padding:13px;background:#c8922a;border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:2px;font-family:'Noto Sans JP',sans-serif;}
-.btn-main:hover{background:#b07820;}
-.btn-calc{width:100%;padding:10px;background:#2a1e0a;border:none;border-radius:6px;color:#f0e6c8;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:1px;font-family:'Noto Sans JP',sans-serif;margin-top:4px;}
-.btn-calc:hover{background:#3a2e1a;}
-.btn-sub{width:100%;padding:10px;background:#fff;border:0.5px solid #e0d8cc;border-radius:6px;color:#a08060;font-size:13px;cursor:pointer;margin-top:8px;font-family:'Noto Sans JP',sans-serif;}
-.hint-box{background:#fdf8f0;border-left:3px solid #c8922a;border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#a08060;line-height:1.9;margin-bottom:1rem;}
-.hint-box b{color:#c8922a;font-weight:500;}
-.prompt-area{background:#f8f5f0;border:0.5px solid #e0d8cc;border-radius:6px;padding:1rem;font-size:12px;line-height:2;color:#6a5a48;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;margin:1rem 0;}
-.json-area{width:100%;padding:10px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:12px;font-family:monospace;min-height:90px;resize:vertical;background:#fff;color:#1a1612;outline:none;}
+.btn-gold{width:100%;padding:14px;background:linear-gradient(135deg,#7a4a10,#c8922a,#7a4a10);border:none;border-radius:4px;color:#0a0608;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;font-weight:600;cursor:pointer;text-transform:uppercase;margin-top:4px;}
+.btn-ghost{width:100%;padding:11px;background:transparent;border:1px solid #2a1408;border-radius:4px;color:#8a7060;font-size:13px;letter-spacing:1.5px;cursor:pointer;font-family:'Cinzel',serif;margin-top:8px;}
+.hint-box{background:#1a0d08;border-left:3px solid #c8922a;border-radius:0 4px 4px 0;padding:10px 14px;font-size:13px;color:#a08060;line-height:1.9;margin-bottom:1rem;}
+.hint-box b{color:#c8922a;font-weight:400;}
+.prompt-area{background:#0e0806;border:1px solid #3a2010;border-radius:6px;padding:1rem;font-size:12px;line-height:2;color:#d4c4a8;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;margin:1rem 0;}
+.step-badge{display:inline-block;background:#1a0d08;border:1px solid #c8922a;border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:2px;color:#c8922a;font-family:'Cinzel',serif;margin-bottom:10px;}
+.json-area{width:100%;background:#0e0806;border:1px solid #2a1408;border-radius:4px;padding:11px;color:#d4c4a8;font-size:13px;font-family:monospace;min-height:90px;resize:vertical;outline:none;}
 .json-area:focus{border-color:#c8922a;}
-.err{color:#c05030;font-size:12px;margin-top:6px;display:none;}
-.carte{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;overflow:hidden;}
-.carte-top{background:linear-gradient(135deg,#1e0e06,#2e1a0a);padding:1.5rem;color:#f0e6c8;text-align:center;}
-.carte-name{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:300;letter-spacing:3px;margin-bottom:4px;}
-.carte-date{font-size:12px;color:#a08060;letter-spacing:1px;}
-.signs-bar{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid #e8e0d4;}
-.sc{padding:14px;text-align:center;}
-.sc:first-child{border-right:0.5px solid #e8e0d4;}
-.sc-lbl{font-size:10px;color:#c8922a;letter-spacing:2px;margin-bottom:4px;}
-.sc-emo{font-size:24px;margin-bottom:3px;}
-.sc-name{font-size:15px;font-weight:500;color:#1a1612;}
-.sc-en{font-size:10px;color:#b0a090;margin-top:2px;}
-.section{padding:1.25rem;border-bottom:0.5px solid #f0e8e0;}
-.section:last-child{border-bottom:none;}
-.sec-title{font-size:12px;font-weight:500;letter-spacing:2px;color:#c8922a;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
-.sec-title::before{content:'';display:inline-block;width:3px;height:14px;background:#c8922a;border-radius:2px;flex-shrink:0;}
-.sec-text{font-size:14px;line-height:2.2;color:#2a1e14;font-family:'Noto Serif JP',serif;}
-.tip-box{background:#fffbf3;border:1px solid #f0d888;border-radius:6px;padding:12px 16px;}
-.tip-box ul{padding-left:1.2rem;list-style:disc;}
-.tip-box li{font-size:14px;line-height:2.1;color:#7a5a10;font-family:'Noto Serif JP',serif;margin-bottom:4px;}
-.carte-footer{padding:1rem;text-align:center;font-size:10px;color:#c0b0a0;letter-spacing:2px;background:#f8f5f0;border-top:0.5px solid #e8e0d4;}
+.err{color:#c85030;font-size:12px;margin-top:6px;display:none;}
+.card{background:#0e0806;border:1px solid #3a2010;border-radius:8px;overflow:hidden;}
+.card-top{background:linear-gradient(160deg,#1e0e06,#120808);padding:1.5rem;text-align:center;border-bottom:1px solid #2a1408;position:relative;}
+.card-top::before,.card-top::after{content:'';position:absolute;left:50%;transform:translateX(-50%);width:100px;height:1px;background:linear-gradient(90deg,transparent,#c8922a,transparent);}
+.card-top::before{top:0;}
+.card-top::after{bottom:0;}
+.card-brand{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#6a4020;margin-bottom:8px;}
+.card-name{font-size:26px;font-weight:300;letter-spacing:4px;color:#f0e6c8;margin-bottom:4px;}
+.card-date{font-size:12px;color:#8a7060;letter-spacing:1px;}
+.card-star{color:#c8922a;font-size:16px;letter-spacing:10px;margin-top:10px;}
+.signs-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #1a0d08;}
+.sign-cell{padding:16px;text-align:center;}
+.sign-cell:first-child{border-right:1px solid #1a0d08;}
+.sign-lbl{font-size:10px;letter-spacing:2px;color:#c8922a;font-family:'Cinzel',serif;margin-bottom:5px;}
+.sign-emo{font-size:28px;margin-bottom:4px;}
+.sign-nm{font-size:16px;color:#f0e6c8;letter-spacing:1px;}
+.sign-en{font-size:10px;color:#5a4030;font-family:'Cinzel',serif;letter-spacing:1px;margin-top:3px;}
+.card-body{padding:1.5rem;}
+.card-msg{font-size:16px;line-height:2.5;color:#d4c4a8;}
+.card-footer{padding:1rem;text-align:center;border-top:1px solid #1a0d08;background:#080406;}
+.card-footer-txt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#4a2810;}
 </style>
 </head>
 <body>
 <div class="app">
   <div class="hdr">
-    <h1>✦ 星読みカルテ</h1>
-    <p>LIBERA FINANCE WORKS — セッション準備用</p>
+    <div class="hdr-brand">LIBERA FINANCE WORKS</div>
+    <div class="hdr-title">✦ 星のミニ鑑定 ✦</div>
+    <div class="hdr-sub">あなたの星座が伝えるメッセージ</div>
   </div>
+
   <div class="tabs">
-    <div class="tab active" onclick="sw('t1')">STEP 1　入力</div>
-    <div class="tab" onclick="sw('t2')">STEP 2　貼り付け</div>
-    <div class="tab" onclick="sw('t3')">STEP 3　カルテ</div>
+    <div class="tab active" onclick="sw('s1')">STEP 1　入力</div>
+    <div class="tab" onclick="sw('s2')">STEP 2　貼り付け</div>
+    <div class="tab" onclick="sw('s3')">STEP 3　鑑定書</div>
   </div>
 
   <!-- STEP1 -->
-  <div class="panel active" id="t1">
-    <div class="form-card">
-      <h2>クライアント情報</h2>
-      <div class="frow one"><div class="fgroup"><label>お名前</label><input type="text" id="name" placeholder="例：ゆきさん"></div></div>
-      <div class="frow three">
-        <div class="fgroup"><label>生年（西暦）</label><input type="number" id="yr" placeholder="1989" style="text-align:center" oninput="onBirthChange()"></div>
-        <div class="fgroup"><label>月</label><input type="number" id="mo" placeholder="9" style="text-align:center" oninput="onBirthChange()"></div>
-        <div class="fgroup"><label>日</label><input type="number" id="dy" placeholder="1" style="text-align:center" oninput="onBirthChange()"></div>
+  <div class="panel active" id="s1">
+    <div class="step-badge">STEP 1 — 情報入力</div>
+    <div class="fgroup"><label class="flabel">お名前</label><input class="finput" type="text" id="name" placeholder="例：さくら"></div>
+    <div class="fgroup"><label class="flabel">生年月日</label>
+      <div class="date-row">
+        <input class="finput" type="number" id="yr" placeholder="1990" style="text-align:center" oninput="onBirthChange()">
+        <input class="finput" type="number" id="mo" placeholder="月" style="text-align:center" oninput="onBirthChange()">
+        <input class="finput" type="number" id="dy" placeholder="日" style="text-align:center" oninput="onBirthChange()">
       </div>
-      <div class="frow two">
-        <div class="fgroup">
-          <label>出生時刻 <span style="color:#b0a090;font-size:10px">任意・精度UP</span></label>
-          <input type="time" id="bt" oninput="onBirthChange()">
+    </div>
+    <div class="fgroup">
+      <div class="two-row">
+        <div>
+          <label class="flabel">出生時刻 <span style="font-size:9px;color:#5a3818;letter-spacing:1px">任意・精度UP</span></label>
+          <input class="finput" type="time" id="bt" oninput="onBirthChange()">
         </div>
-        <div class="fgroup">
-          <label>出生地・都道府県 <span style="color:#b0a090;font-size:10px">任意・精度UP</span></label>
-          <select id="pref" onchange="onBirthChange()">
+        <div>
+          <label class="flabel">出生地 <span style="font-size:9px;color:#5a3818;letter-spacing:1px">任意・精度UP</span></label>
+          <select class="fselect" id="pref" onchange="onBirthChange()">
             <option value="">未入力</option>
             <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option>
             <option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option>
@@ -121,77 +123,70 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
           </select>
         </div>
       </div>
-      <div class="frow one"><div class="fgroup"><label>セッション目的・メモ</label><input type="text" id="memo" placeholder="例：ACCHEマネジメント、ヒーリングセッション など"></div></div>
     </div>
 
     <!-- 星座判定結果 -->
-    <div class="form-card">
-      <h2>星座判定 <span>生年月日を入力すると自動表示</span></h2>
-      <div class="result-box" id="result_box">
-        <div class="rb-title">✦ 判定結果</div>
-        <div class="result-signs">
-          <div class="result-sign">
-            <div class="rs-lbl">太陽星座</div>
-            <div class="rs-emo" id="r_sun_e">—</div>
-            <div class="rs-name" id="r_sun_name">—</div>
-            <div class="rs-en" id="r_sun_en"></div>
-          </div>
-          <div class="result-sign">
-            <div class="rs-lbl">月星座 <span id="moon_badge"></span></div>
-            <div class="rs-emo" id="r_moon_e">—</div>
-            <div class="rs-name" id="r_moon_name">—</div>
-            <div class="rs-en" id="r_moon_en"></div>
-          </div>
+    <div class="result-box" id="result_box">
+      <div class="rb-title">✦ 星座判定</div>
+      <div class="result-signs">
+        <div class="result-sign">
+          <div class="rs-lbl">太陽星座</div>
+          <div class="rs-emo" id="r_sun_e">—</div>
+          <div class="rs-name" id="r_sun_name">—</div>
+          <div class="rs-en" id="r_sun_en"></div>
         </div>
-        <!-- 月星座が不確かな場合の手動修正 -->
-        <div class="moon-manual" id="moon_manual">
-          <div class="moon-manual-hint">⚠️ 出生時刻が未入力のため月星座は概算です。<br>正確な値は <a href="https://e-moon.net/moon-sign/" target="_blank">e-moon.net</a> で確認できます。</div>
-          <div class="fgroup">
-            <label>月星座を修正する場合（任意）</label>
-            <select id="moon_fix" onchange="onMoonFix()">
-              <option value="">このまま使用</option>
-              <option>牡羊座</option><option>牡牛座</option><option>双子座</option><option>蟹座</option>
-              <option>獅子座</option><option>乙女座</option><option>天秤座</option><option>蠍座</option>
-              <option>射手座</option><option>山羊座</option><option>水瓶座</option><option>魚座</option>
-            </select>
-          </div>
+        <div class="result-sign">
+          <div class="rs-lbl">月星座 <span id="moon_badge"></span></div>
+          <div class="rs-emo" id="r_moon_e">—</div>
+          <div class="rs-name" id="r_moon_name">—</div>
+          <div class="rs-en" id="r_moon_en"></div>
+        </div>
+      </div>
+      <div class="moon-manual" id="moon_manual">
+        <div class="moon-manual-hint">⚠️ 出生時刻未入力のため月星座は概算です。<br>正確な値は <a href="https://e-moon.net/moon-sign/" target="_blank">e-moon.net</a> で確認できます。</div>
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel" style="font-size:10px">月星座を修正（任意）</label>
+          <select class="fselect" id="moon_fix" onchange="onMoonFix()">
+            <option value="">このまま使用</option>
+            <option>牡羊座</option><option>牡牛座</option><option>双子座</option><option>蟹座</option>
+            <option>獅子座</option><option>乙女座</option><option>天秤座</option><option>蠍座</option>
+            <option>射手座</option><option>山羊座</option><option>水瓶座</option><option>魚座</option>
+          </select>
         </div>
       </div>
     </div>
 
-    <button class="btn-main" onclick="gen()">プロンプトを生成する</button>
+    <button class="btn-gold" onclick="gen()" style="margin-top:1rem">✦ プロンプトを生成する ✦</button>
     <div class="err" id="e1">名前と生年月日を入力してください</div>
-    <div id="pr" style="display:none;margin-top:1rem">
-      <div class="hint-box">下のテキストをコピーして、<b>Claudeのチャットに送信</b>してください。返ってきたJSONをSTEP 2に貼り付けます。</div>
+    <div id="pr" style="display:none;margin-top:1.25rem">
+      <div class="step-badge">生成されました ✦</div>
+      <div class="hint-box" style="margin-top:8px">下のテキストを<b>全選択してコピー</b>し、<b>Claudeのチャットに送信</b>してください</div>
       <div class="prompt-area" id="pb"></div>
-      <button class="btn-main" onclick="cp()">コピーする</button>
-      <button class="btn-sub" onclick="sw('t2')">コピーしたら → STEP 2へ</button>
+      <button class="btn-gold" onclick="cp()">✦ プロンプトをコピー ✦</button>
+      <button class="btn-ghost" onclick="sw('s2')">コピーしたら → STEP 2へ</button>
     </div>
   </div>
 
   <!-- STEP2 -->
-  <div class="panel" id="t2">
-    <div class="form-card">
-      <h2>Claudeの返答を貼り付け</h2>
-      <div class="hint-box">Claudeから返ってきた <b>{"sun_detail":...}</b> のJSON全体をそのまま貼り付けてください</div>
-      <div class="fgroup"><label>JSON貼り付け</label>
-        <textarea class="json-area" id="ji" placeholder='{"sun_detail":"...","moon_detail":"...","strengths":"...","approach":"...","tip":"..."}'></textarea>
-      </div>
+  <div class="panel" id="s2">
+    <div class="step-badge">STEP 2 — 鑑定文を貼り付け</div>
+    <div class="hint-box" style="margin-top:8px">Claudeが返した <b>{"reading":"..."}</b> のJSON全体を貼り付けてください</div>
+    <div class="fgroup" style="margin-top:1rem"><label class="flabel">JSONを貼り付け</label>
+      <textarea class="json-area" id="ji" placeholder='{"reading":"鑑定文がここに入ります..."}'></textarea>
     </div>
-    <button class="btn-main" onclick="render()">カルテを表示する</button>
+    <button class="btn-gold" onclick="render()">✦ 鑑定書を表示する ✦</button>
     <div class="err" id="e2">有効なJSONを貼り付けてください</div>
-    <button class="btn-sub" onclick="sw('t1')">← STEP 1に戻る</button>
+    <button class="btn-ghost" onclick="sw('s1')">← STEP 1に戻る</button>
   </div>
 
   <!-- STEP3 -->
-  <div class="panel" id="t3">
-    <div id="cw"><p style="text-align:center;color:#b0a090;padding:2rem;font-size:13px">STEP 2でカルテを生成してください</p></div>
-    <button class="btn-sub" style="margin-top:1rem" onclick="sw('t1')">← 新しいカルテを作る</button>
+  <div class="panel" id="s3">
+    <div id="cw"><p style="text-align:center;color:#5a3818;padding:2rem;font-size:13px">STEP 2で鑑定書を生成してください</p></div>
+    <button class="btn-ghost" style="margin-top:1rem" onclick="sw('s1')">← 新しい鑑定をする</button>
   </div>
 </div>
 
 <script>
-// ── 星座データ ──
 const SIGN_DATA={
   '牡羊座':{en:'Aries',e:'♈'},'牡牛座':{en:'Taurus',e:'♉'},'双子座':{en:'Gemini',e:'♊'},
   '蟹座':{en:'Cancer',e:'♋'},'獅子座':{en:'Leo',e:'♌'},'乙女座':{en:'Virgo',e:'♍'},
@@ -199,247 +194,148 @@ const SIGN_DATA={
   '山羊座':{en:'Capricorn',e:'♑'},'水瓶座':{en:'Aquarius',e:'♒'},'魚座':{en:'Pisces',e:'♓'},
 };
 const SIGN_NAMES=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];
-
-// 都道府県→経度（概算）
-const PREF_LON={
-  '北海道':143.2,'青森県':140.7,'岩手県':141.1,'宮城県':140.9,'秋田県':140.1,
-  '山形県':140.4,'福島県':140.5,'茨城県':140.4,'栃木県':139.9,'群馬県':139.1,
-  '埼玉県':139.6,'千葉県':140.1,'東京都':139.7,'神奈川県':139.6,'新潟県':139.0,
-  '富山県':137.2,'石川県':136.6,'福井県':136.2,'山梨県':138.6,'長野県':138.2,
-  '岐阜県':136.7,'静岡県':138.4,'愛知県':137.0,'三重県':136.5,'滋賀県':136.2,
-  '京都府':135.8,'大阪府':135.5,'兵庫県':135.2,'奈良県':135.8,'和歌山県':135.2,
-  '鳥取県':134.2,'島根県':133.1,'岡山県':133.9,'広島県':132.5,'山口県':131.5,
-  '徳島県':134.6,'香川県':134.0,'愛媛県':132.8,'高知県':133.5,'福岡県':130.4,
-  '佐賀県':130.3,'長崎県':129.9,'熊本県':130.7,'大分県':131.6,'宮崎県':131.4,
-  '鹿児島県':130.6,'沖縄県':127.7
-};
-
-// ── 太陽星座（高精度：黄経テーブル使用） ──
-const SUN_CUSPS = [
-  // [月,日] から星座インデックス（牡羊座=0）
-  // 春分点基準で各星座の開始月日
-  {s:0,m:3,d:21},{s:1,m:4,d:20},{s:2,m:5,d:21},{s:3,m:6,d:21},
-  {s:4,m:7,d:23},{s:5,m:8,d:23},{s:6,m:9,d:23},{s:7,m:10,d:23},
-  {s:8,m:11,d:22},{s:9,m:12,d:22},{s:10,m:1,d:20},{s:11,m:2,d:19}
+const SUN_SIMPLE=[
+  {name:'山羊座',sm:12,sd:22,em:1,ed:19},{name:'水瓶座',sm:1,sd:20,em:2,ed:18},
+  {name:'魚座',sm:2,sd:19,em:3,ed:20},{name:'牡羊座',sm:3,sd:21,em:4,ed:19},
+  {name:'牡牛座',sm:4,sd:20,em:5,ed:20},{name:'双子座',sm:5,sd:21,em:6,ed:20},
+  {name:'蟹座',sm:6,sd:21,em:7,ed:22},{name:'獅子座',sm:7,sd:23,em:8,ed:22},
+  {name:'乙女座',sm:8,sd:23,em:9,ed:22},{name:'天秤座',sm:9,sd:23,em:10,ed:22},
+  {name:'蠍座',sm:10,sd:23,em:11,ed:21},{name:'射手座',sm:11,sd:22,em:12,ed:21},
 ];
-function getSunSign(mo, dy) {
-  // 逆順でチェック
-  const order = [9,10,11,0,1,2,3,4,5,6,7,8]; // 12月→1月順
-  for(let i = SUN_CUSPS.length-1; i>=0; i--){
-    const c = SUN_CUSPS[i];
-    if(c.m < 3){ // 1月・2月
-      if(mo===c.m && dy>=c.d) return SIGN_NAMES[c.s];
-    } else {
-      if(mo===c.m && dy>=c.d) return SIGN_NAMES[c.s];
-      if(mo>c.m && mo<(c.s<11?SUN_CUSPS[c.s+1].m:13)) return SIGN_NAMES[c.s];
-    }
-  }
-  // シンプルな判定に fallback
-  const simple=[
-    {name:'山羊座',sm:12,sd:22,em:1,ed:19},{name:'水瓶座',sm:1,sd:20,em:2,ed:18},
-    {name:'魚座',sm:2,sd:19,em:3,ed:20},{name:'牡羊座',sm:3,sd:21,em:4,ed:19},
-    {name:'牡牛座',sm:4,sd:20,em:5,ed:20},{name:'双子座',sm:5,sd:21,em:6,ed:20},
-    {name:'蟹座',sm:6,sd:21,em:7,ed:22},{name:'獅子座',sm:7,sd:23,em:8,ed:22},
-    {name:'乙女座',sm:8,sd:23,em:9,ed:22},{name:'天秤座',sm:9,sd:23,em:10,ed:22},
-    {name:'蠍座',sm:10,sd:23,em:11,ed:21},{name:'射手座',sm:11,sd:22,em:12,ed:21},
-  ];
-  for(const s of simple){
+function getSunSign(mo,dy){
+  for(const s of SUN_SIMPLE){
     if(s.sm>s.em){if((mo===s.sm&&dy>=s.sd)||(mo===s.em&&dy<=s.ed))return s.name;}
     else{if((mo===s.sm&&dy>=s.sd)||(mo>s.sm&&mo<s.em)||(mo===s.em&&dy<=s.ed))return s.name;}
   }
   return '山羊座';
 }
 
-// ── 月星座（高精度：Jean Meeus アルゴリズム） ──
-function getMoonLon(year, month, day, hour) {
-  // Julianday
-  if(month <= 2){ year--; month+=12; }
-  const A = Math.floor(year/100);
-  const B = 2 - A + Math.floor(A/4);
-  const JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + hour/24 + B - 1524.5;
-  const T = (JD - 2451545.0) / 36525.0;
-  // 月の平均黄経
-  const L0 = 218.3164477 + 481267.88123421*T - 0.0015786*T*T + T*T*T/538841 - T*T*T*T/65194000;
-  // 月の平均近点角
-  const M_ = 134.9633964 + 477198.8676313*T + 0.0089970*T*T + T*T*T/69699 - T*T*T*T/14712000;
-  // 太陽の平均近点角
-  const M = 357.5291092 + 35999.0502909*T - 0.0001536*T*T + T*T*T/24490000;
-  // 月の緯度引数
-  const F = 93.2720950 + 483202.0175233*T - 0.0036539*T*T - T*T*T/3526000 + T*T*T*T/863310000;
-  // 月と太陽の平均離角
-  const D = 297.8501921 + 445267.1114034*T - 0.0018819*T*T + T*T*T/545868 - T*T*T*T/113065000;
-
-  const r = Math.PI/180;
-  // 主要補正項
-  const dL = 6288774*Math.sin(M_*r)
-    + 1274027*Math.sin((2*D - M_)*r)
-    + 658314*Math.sin(2*D*r)
-    + 213618*Math.sin(2*M_*r)
-    - 185116*Math.sin(M*r)
-    - 114332*Math.sin(2*F*r)
-    + 58793*Math.sin((2*D - 2*M_)*r)
-    + 57066*Math.sin((2*D - M - M_)*r)
-    + 53322*Math.sin((2*D + M_)*r)
-    + 45758*Math.sin((2*D - M)*r)
-    - 40923*Math.sin((M - M_)*r)
-    - 34720*Math.sin(D*r)
-    - 30383*Math.sin((M + M_)*r)
-    + 15327*Math.sin((2*D - 2*F)*r)
-    - 12528*Math.sin(M_*r + 2*F*r)
-    + 10980*Math.sin((M_ - 2*F)*r)
-    + 10675*Math.sin((4*D - M_)*r)
-    + 10034*Math.sin(3*M_*r)
-    + 8548*Math.sin((4*D - 2*M_)*r)
-    - 7888*Math.sin((2*D + M - M_)*r)
-    - 6766*Math.sin((2*D + M)*r)
-    - 5163*Math.sin((D - M_)*r);
-
-  let lon = ((L0 + dL/1000000) % 360 + 360) % 360;
-  return lon;
+// Meeus 月星座計算
+function getMoonLon(year,month,day,hour){
+  if(month<=2){year--;month+=12;}
+  const A=Math.floor(year/100);
+  const B=2-A+Math.floor(A/4);
+  const JD=Math.floor(365.25*(year+4716))+Math.floor(30.6001*(month+1))+day+hour/24+B-1524.5;
+  const T=(JD-2451545.0)/36525.0;
+  const L0=218.3164477+481267.88123421*T-0.0015786*T*T+T*T*T/538841-T*T*T*T/65194000;
+  const M_=134.9633964+477198.8676313*T+0.0089970*T*T+T*T*T/69699-T*T*T*T/14712000;
+  const M=357.5291092+35999.0502909*T-0.0001536*T*T+T*T*T/24490000;
+  const F=93.2720950+483202.0175233*T-0.0036539*T*T-T*T*T/3526000+T*T*T*T/863310000;
+  const D=297.8501921+445267.1114034*T-0.0018819*T*T+T*T*T/545868-T*T*T*T/113065000;
+  const r=Math.PI/180;
+  const dL=6288774*Math.sin(M_*r)+1274027*Math.sin((2*D-M_)*r)+658314*Math.sin(2*D*r)
+    +213618*Math.sin(2*M_*r)-185116*Math.sin(M*r)-114332*Math.sin(2*F*r)
+    +58793*Math.sin((2*D-2*M_)*r)+57066*Math.sin((2*D-M-M_)*r)+53322*Math.sin((2*D+M_)*r)
+    +45758*Math.sin((2*D-M)*r)-40923*Math.sin((M-M_)*r)-34720*Math.sin(D*r)
+    -30383*Math.sin((M+M_)*r)+15327*Math.sin((2*D-2*F)*r)-12528*Math.sin(M_*r+2*F*r)
+    +10980*Math.sin((M_-2*F)*r)+10675*Math.sin((4*D-M_)*r)+10034*Math.sin(3*M_*r)
+    +8548*Math.sin((4*D-2*M_)*r)-7888*Math.sin((2*D+M-M_)*r)-6766*Math.sin((2*D+M)*r)
+    -5163*Math.sin((D-M_)*r);
+  return ((L0+dL/1000000)%360+360)%360;
+}
+function getMoonSign(y,mo,dy,hourJST){
+  let uh=hourJST-9,uy=y,um=mo,ud=dy;
+  if(uh<0){uh+=24;ud--;if(ud<1){um--;if(um<1){um=12;uy--;}ud=new Date(uy,um,0).getDate();}}
+  const lon=getMoonLon(uy,um,ud,uh);
+  return SIGN_NAMES[Math.floor(lon/30)%12];
 }
 
-function getMoonSign(y, mo, dy, hourJST) {
-  // JST → UTC
-  const utcHour = hourJST - 9;
-  let uy=y, um=mo, ud=dy, uh=utcHour;
-  if(uh<0){uh+=24; ud--; if(ud<1){um--;if(um<1){um=12;uy--;}ud=new Date(uy,um,0).getDate();}}
-  const lon = getMoonLon(uy, um, ud, uh);
-  const idx = Math.floor(lon / 30);
-  return SIGN_NAMES[idx % 12];
-}
-
-// ── 状態 ──
-let cd = {};
-let moonIsApprox = false;
-
-function onBirthChange() {
-  const y = parseInt(document.getElementById('yr').value);
-  const mo = parseInt(document.getElementById('mo').value);
-  const dy = parseInt(document.getElementById('dy').value);
-  const bt = document.getElementById('bt').value;
-  const pref = document.getElementById('pref').value;
-  if(!y || !mo || !dy) { document.getElementById('result_box').classList.remove('show'); return; }
-
-  // 太陽星座
-  const sunName = getSunSign(mo, dy);
-  const sunD = SIGN_DATA[sunName];
-
-  // 月星座
-  let moonName, isApprox;
-  if(bt) {
-    const [h, m] = bt.split(':').map(Number);
-    const hourJST = h + m/60;
-    moonName = getMoonSign(y, mo, dy, hourJST);
-    isApprox = false;
-  } else {
-    // 時刻不明：正午(12:00 JST)で計算
-    moonName = getMoonSign(y, mo, dy, 12);
-    isApprox = true;
-  }
-
-  moonIsApprox = isApprox;
-  const moonD = SIGN_DATA[moonName];
-
-  // 結果表示
-  document.getElementById('r_sun_e').textContent = sunD.e;
-  document.getElementById('r_sun_name').textContent = sunName;
-  document.getElementById('r_sun_en').textContent = sunD.en.toUpperCase();
-  document.getElementById('r_moon_e').textContent = moonD.e;
-  document.getElementById('r_moon_name').textContent = moonName;
-  document.getElementById('r_moon_en').textContent = moonD.en.toUpperCase();
-  document.getElementById('moon_badge').innerHTML = isApprox
-    ? '<span class="info-badge badge-manual">概算</span>'
-    : '<span class="info-badge badge-auto">高精度</span>';
-  document.getElementById('moon_manual').className = 'moon-manual' + (isApprox ? ' show' : '');
-  document.getElementById('moon_fix').value = '';
+let cd={};
+function onBirthChange(){
+  const y=parseInt(document.getElementById('yr').value);
+  const mo=parseInt(document.getElementById('mo').value);
+  const dy=parseInt(document.getElementById('dy').value);
+  const bt=document.getElementById('bt').value;
+  if(!y||!mo||!dy){document.getElementById('result_box').classList.remove('show');return;}
+  const sunName=getSunSign(mo,dy);
+  const sunD=SIGN_DATA[sunName];
+  let moonName,isApprox;
+  if(bt){const[h,m]=bt.split(':').map(Number);moonName=getMoonSign(y,mo,dy,h+m/60);isApprox=false;}
+  else{moonName=getMoonSign(y,mo,dy,12);isApprox=true;}
+  const moonD=SIGN_DATA[moonName];
+  document.getElementById('r_sun_e').textContent=sunD.e;
+  document.getElementById('r_sun_name').textContent=sunName;
+  document.getElementById('r_sun_en').textContent=sunD.en.toUpperCase();
+  document.getElementById('r_moon_e').textContent=moonD.e;
+  document.getElementById('r_moon_name').textContent=moonName;
+  document.getElementById('r_moon_en').textContent=moonD.en.toUpperCase();
+  document.getElementById('moon_badge').innerHTML=isApprox
+    ?'<span class="info-badge badge-manual">概算</span>'
+    :'<span class="info-badge badge-auto">高精度</span>';
+  document.getElementById('moon_manual').className='moon-manual'+(isApprox?' show':'');
+  document.getElementById('moon_fix').value='';
   document.getElementById('result_box').classList.add('show');
-
-  // cdを更新
-  cd.sun = {name:sunName, ...sunD};
-  cd.moon = {name:moonName, ...moonD};
+  cd.sun={name:sunName,...sunD};
+  cd.moon={name:moonName,...moonD};
 }
-
-function onMoonFix() {
-  const v = document.getElementById('moon_fix').value;
-  if(!v) return;
-  const moonD = SIGN_DATA[v];
-  document.getElementById('r_moon_e').textContent = moonD.e;
-  document.getElementById('r_moon_name').textContent = v;
-  document.getElementById('r_moon_en').textContent = moonD.en.toUpperCase();
-  document.getElementById('moon_badge').innerHTML = '<span class="info-badge badge-auto">修正済</span>';
-  cd.moon = {name:v, ...moonD};
+function onMoonFix(){
+  const v=document.getElementById('moon_fix').value;
+  if(!v)return;
+  const moonD=SIGN_DATA[v];
+  document.getElementById('r_moon_e').textContent=moonD.e;
+  document.getElementById('r_moon_name').textContent=v;
+  document.getElementById('r_moon_en').textContent=moonD.en.toUpperCase();
+  document.getElementById('moon_badge').innerHTML='<span class="info-badge badge-auto">修正済</span>';
+  cd.moon={name:v,...moonD};
 }
-
-function gen() {
-  const name = document.getElementById('name').value.trim();
-  const y = parseInt(document.getElementById('yr').value);
-  const mo = parseInt(document.getElementById('mo').value);
-  const dy = parseInt(document.getElementById('dy').value);
-  const bt = document.getElementById('bt').value;
-  const pref = document.getElementById('pref').value;
-  const memo = document.getElementById('memo').value.trim();
-  if(!name || !y || !mo || !dy || !cd.sun) {
-    document.getElementById('e1').style.display='block'; return;
-  }
+function gen(){
+  const name=document.getElementById('name').value.trim();
+  const y=parseInt(document.getElementById('yr').value);
+  const mo=parseInt(document.getElementById('mo').value);
+  const dy=parseInt(document.getElementById('dy').value);
+  const bt=document.getElementById('bt').value;
+  const pref=document.getElementById('pref').value;
+  if(!name||!y||!mo||!dy||!cd.sun){document.getElementById('e1').style.display='block';return;}
   document.getElementById('e1').style.display='none';
-  cd = {...cd, name, y, mo, dy, bt, pref, memo};
-
-  const birthInfo = [`${y}年${mo}月${dy}日`, bt?`出生時刻：${bt}`:'', pref?`出生地：${pref}`:''].filter(Boolean).join(' / ');
-  const p = `以下のクライアントの占星術カルテを作成してください。\n\n名前：${name}さん\n生年月日：${birthInfo}\n太陽星座：${cd.sun.name}（${cd.sun.en}）\n月星座：${cd.moon.name}（${cd.moon.en}）${memo?'\nセッション目的：'+memo:''}\n\n各項目200字前後で、専門的かつ実用的に記述してください。\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{\n  "sun_detail": "太陽星座（${cd.sun.name}）の本質・特徴・行動パターン",\n  "moon_detail": "月星座（${cd.moon.name}）の内面・感情・無意識のパターン",\n  "strengths": "この組み合わせの強み・才能・輝く場面",\n  "approach": "セッションや会話でのアプローチ注意点（地雷・響くポイント・信頼の作り方）",\n  "tip": "扱いのワンポイント（一言Tips。箇条書き3つ）"\n}`;
-  document.getElementById('pb').textContent = p;
-  document.getElementById('pr').style.display = 'block';
+  cd={...cd,name,y,mo,dy,bt,pref};
+  const birthInfo=[`${y}年${mo}月${dy}日`,bt?`出生時刻：${bt}`:'',pref?`出生地：${pref}`:''].filter(Boolean).join(' / ');
+  const prompt=`以下の方の占星術ミニ鑑定文を書いてください。\n\n名前：${name}さん\n生年月日：${birthInfo}\n太陽星座：${cd.sun.name}（${cd.sun.en}）\n月星座：${cd.moon.name}（${cd.moon.en}）\n\n条件：\n・200〜250文字\n・「${name}さん」への呼びかけで始める\n・太陽星座の本質と月星座の内面を組み合わせた内容\n・スピリチュアルで詩的、かつ親しみやすい日本語\n・今この時期へのメッセージを含める\n・最後に短い一言で締める\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{"reading":"鑑定文をここに"}`;
+  document.getElementById('pb').textContent=prompt;
+  document.getElementById('pr').style.display='block';
 }
-
-function cp() {
+function cp(){
   navigator.clipboard.writeText(document.getElementById('pb').textContent).then(()=>{
-    const b = document.querySelectorAll('.btn-main')[1];
-    b.textContent='コピーしました！'; setTimeout(()=>b.textContent='コピーする',2000);
+    const b=document.querySelectorAll('.btn-gold')[1];
+    b.textContent='✦ コピーしました！';setTimeout(()=>b.textContent='✦ プロンプトをコピー ✦',2000);
   });
 }
-
 function normalizeJSON(s){
   return s
     .replace(/```json|```/g,'')
-    .replace(/[\u201C\u201D\u201E\u2033\u3003]/g,'"')  // 全角ダブルクォート→半角
-    .replace(/[\u2018\u2019\u2032]/g,"'")              // 全角シングルクォート→半角
-    .replace(/\uFF1A/g,':')                            // 全角コロン→半角
-    .replace(/\uFF0C/g,',')                            // 全角カンマ→半角
-    .replace(/\uFF5B/g,'{').replace(/\uFF5D/g,'}')     // 全角波括弧→半角
+    .replace(/[\u201C\u201D\u201E\u2033\u3003]/g,'"')
+    .replace(/[\u2018\u2019\u2032]/g,"'")
+    .replace(/\uFF1A/g,':')
+    .replace(/\uFF0C/g,',')
+    .replace(/\uFF5B/g,'{').replace(/\uFF5D/g,'}')
     .trim();
 }
-function render() {
-  const raw = document.getElementById('ji').value.trim();
-  try { d=JSON.parse(normalizeJSON(raw)); if(!d.sun_detail) throw 0; }
-  catch { document.getElementById('e2').style.display='block'; return; }
+function render(){
+  const raw=document.getElementById('ji').value.trim();
+  let reading='';
+  try{const p=JSON.parse(normalizeJSON(raw));reading=p.reading||p.text||'';if(!reading)throw 0;}
+  catch{document.getElementById('e2').style.display='block';return;}
   document.getElementById('e2').style.display='none';
-  if(!cd.name) {
-    document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';
-    document.getElementById('e2').style.display='block'; return;
-  }
-  const tipLines=(d.tip||'').split(/\n|・/).filter(s=>s.trim()).map(s=>`<li>${s.trim().replace(/^[・\-\*]\s*/,'')}</li>`).join('');
-  const birthMeta=[`${cd.y}年${cd.mo}月${cd.dy}日生まれ`, cd.bt?`${cd.bt}生まれ`:'', cd.pref?cd.pref:''].filter(Boolean).join('　');
+  if(!cd.name){document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';document.getElementById('e2').style.display='block';return;}
+  const birthMeta=[`${cd.y}年${cd.mo}月${cd.dy}日生まれ`,cd.bt?`${cd.bt}生まれ`:'',cd.pref?cd.pref:''].filter(Boolean).join('　');
   document.getElementById('cw').innerHTML=`
-<div class="carte">
-  <div class="carte-top">
-    <div class="carte-name">${cd.name} さん</div>
-    <div class="carte-date">${birthMeta}${cd.memo?' ／ '+cd.memo:''}</div>
+<div class="card">
+  <div class="card-top">
+    <div class="card-brand">LIBERA FINANCE WORKS ✦ 星のミニ鑑定</div>
+    <div class="card-name">${cd.name} さん</div>
+    <div class="card-date">${birthMeta}</div>
+    <div class="card-star">✦ ✦ ✦</div>
   </div>
-  <div class="signs-bar">
-    <div class="sc"><div class="sc-lbl">太陽星座</div><div class="sc-emo">${cd.sun.e}</div><div class="sc-name">${cd.sun.name}</div><div class="sc-en">${cd.sun.en.toUpperCase()}</div></div>
-    <div class="sc"><div class="sc-lbl">月星座</div><div class="sc-emo">${cd.moon.e}</div><div class="sc-name">${cd.moon.name}</div><div class="sc-en">${cd.moon.en.toUpperCase()}</div></div>
+  <div class="signs-row">
+    <div class="sign-cell"><div class="sign-lbl">太陽星座</div><div class="sign-emo">${cd.sun.e}</div><div class="sign-nm">${cd.sun.name}</div><div class="sign-en">${cd.sun.en}</div></div>
+    <div class="sign-cell"><div class="sign-lbl">月星座</div><div class="sign-emo">${cd.moon.e}</div><div class="sign-nm">${cd.moon.name}</div><div class="sign-en">${cd.moon.en}</div></div>
   </div>
-  <div class="section"><div class="sec-title">太陽星座の本質 — ${cd.sun.name}</div><div class="sec-text">${d.sun_detail}</div></div>
-  <div class="section"><div class="sec-title">月星座の内面 — ${cd.moon.name}</div><div class="sec-text">${d.moon_detail}</div></div>
-  <div class="section"><div class="sec-title">強み・才能</div><div class="sec-text">${d.strengths}</div></div>
-  <div class="section"><div class="sec-title">アプローチ注意点</div><div class="sec-text">${d.approach}</div></div>
-  <div class="section"><div class="sec-title">扱いのワンポイント</div><div class="tip-box"><ul>${tipLines}</ul></div></div>
-  <div class="carte-footer">LIBERA FINANCE WORKS — Sachiko Kumagai</div>
+  <div class="card-body"><div class="card-msg">${reading}</div></div>
+  <div class="card-footer"><div class="card-footer-txt">LIBERA FINANCE WORKS — Sachiko Kumagai</div></div>
 </div>`;
-  sw('t3');
+  sw('s3');
 }
-
 function sw(id){
-  ['t1','t2','t3'].forEach((t,i)=>{
+  ['s1','s2','s3'].forEach((t,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',t===id);
     document.getElementById(t).classList.toggle('active',t===id);
   });
