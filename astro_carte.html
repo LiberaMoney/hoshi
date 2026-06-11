@@ -20,16 +20,36 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
 .panel.active{display:block;}
 .form-card{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;padding:1.25rem;margin-bottom:1rem;}
 .form-card h2{font-size:13px;font-weight:500;color:#c8922a;letter-spacing:1px;margin-bottom:1rem;padding-bottom:8px;border-bottom:0.5px solid #e8e0d4;}
+.form-card h2 span{font-size:11px;color:#b0a090;font-weight:400;margin-left:6px;}
 .frow{display:grid;gap:10px;margin-bottom:10px;}
 .frow.two{grid-template-columns:1fr 1fr;}
 .frow.three{grid-template-columns:2fr 1fr 1fr;}
 .frow.one{grid-template-columns:1fr;}
 .fgroup label{display:block;font-size:11px;color:#a08060;margin-bottom:4px;letter-spacing:1px;}
-.fgroup input{width:100%;padding:9px 11px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:14px;font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1a1612;outline:none;-webkit-appearance:none;}
-.fgroup input:focus{border-color:#c8922a;}
+.fgroup input,.fgroup select{width:100%;padding:9px 11px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:14px;font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1a1612;outline:none;-webkit-appearance:none;}
+.fgroup input:focus,.fgroup select:focus{border-color:#c8922a;}
 .fgroup input::placeholder{color:#c8c0b4;}
+.fgroup select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a08060' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px;}
+.result-box{margin-top:1rem;padding:12px 14px;background:#fdf8f0;border:1px solid #e8d8a0;border-radius:8px;display:none;}
+.result-box.show{display:block;}
+.result-box .rb-title{font-size:11px;color:#c8922a;letter-spacing:2px;margin-bottom:8px;}
+.result-signs{display:flex;gap:12px;}
+.result-sign{flex:1;text-align:center;padding:10px 8px;background:#fff;border-radius:6px;border:0.5px solid #e8d8a0;}
+.result-sign .rs-lbl{font-size:10px;color:#a08060;letter-spacing:1px;margin-bottom:4px;}
+.result-sign .rs-emo{font-size:22px;margin-bottom:2px;}
+.result-sign .rs-name{font-size:14px;font-weight:500;color:#1a1612;}
+.result-sign .rs-en{font-size:10px;color:#b0a090;margin-top:1px;}
+.moon-manual{margin-top:10px;display:none;}
+.moon-manual.show{display:block;}
+.moon-manual-hint{font-size:11px;color:#9a7040;padding:7px 10px;background:#fff8ee;border-radius:4px;border-left:2px solid #e8a020;margin-bottom:8px;line-height:1.7;}
+.moon-manual-hint a{color:#c8922a;}
+.info-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;vertical-align:middle;}
+.badge-auto{background:#e8f4e8;color:#4a8a4a;}
+.badge-manual{background:#fdf0d8;color:#a07020;}
 .btn-main{width:100%;padding:13px;background:#c8922a;border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:2px;font-family:'Noto Sans JP',sans-serif;}
 .btn-main:hover{background:#b07820;}
+.btn-calc{width:100%;padding:10px;background:#2a1e0a;border:none;border-radius:6px;color:#f0e6c8;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:1px;font-family:'Noto Sans JP',sans-serif;margin-top:4px;}
+.btn-calc:hover{background:#3a2e1a;}
 .btn-sub{width:100%;padding:10px;background:#fff;border:0.5px solid #e0d8cc;border-radius:6px;color:#a08060;font-size:13px;cursor:pointer;margin-top:8px;font-family:'Noto Sans JP',sans-serif;}
 .hint-box{background:#fdf8f0;border-left:3px solid #c8922a;border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#a08060;line-height:1.9;margin-bottom:1rem;}
 .hint-box b{color:#c8922a;font-weight:500;}
@@ -37,7 +57,6 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
 .json-area{width:100%;padding:10px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:12px;font-family:monospace;min-height:90px;resize:vertical;background:#fff;color:#1a1612;outline:none;}
 .json-area:focus{border-color:#c8922a;}
 .err{color:#c05030;font-size:12px;margin-top:6px;display:none;}
-/* カルテ */
 .carte{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;overflow:hidden;}
 .carte-top{background:linear-gradient(135deg,#1e0e06,#2e1a0a);padding:1.5rem;color:#f0e6c8;text-align:center;}
 .carte-name{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:300;letter-spacing:3px;margin-bottom:4px;}
@@ -66,7 +85,6 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
     <h1>✦ 星読みカルテ</h1>
     <p>LIBERA FINANCE WORKS — セッション準備用</p>
   </div>
-
   <div class="tabs">
     <div class="tab active" onclick="sw('t1')">STEP 1　入力</div>
     <div class="tab" onclick="sw('t2')">STEP 2　貼り付け</div>
@@ -79,13 +97,68 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
       <h2>クライアント情報</h2>
       <div class="frow one"><div class="fgroup"><label>お名前</label><input type="text" id="name" placeholder="例：ゆきさん"></div></div>
       <div class="frow three">
-        <div class="fgroup"><label>生年（西暦）</label><input type="number" id="yr" placeholder="1989" style="text-align:center"></div>
-        <div class="fgroup"><label>月</label><input type="number" id="mo" placeholder="9" style="text-align:center"></div>
-        <div class="fgroup"><label>日</label><input type="number" id="dy" placeholder="1" style="text-align:center"></div>
+        <div class="fgroup"><label>生年（西暦）</label><input type="number" id="yr" placeholder="1989" style="text-align:center" oninput="onBirthChange()"></div>
+        <div class="fgroup"><label>月</label><input type="number" id="mo" placeholder="9" style="text-align:center" oninput="onBirthChange()"></div>
+        <div class="fgroup"><label>日</label><input type="number" id="dy" placeholder="1" style="text-align:center" oninput="onBirthChange()"></div>
       </div>
-      <div class="frow one"><div class="fgroup"><label>出生時刻（任意）</label><input type="time" id="bt"></div></div>
+      <div class="frow two">
+        <div class="fgroup">
+          <label>出生時刻 <span style="color:#b0a090;font-size:10px">任意・精度UP</span></label>
+          <input type="time" id="bt" oninput="onBirthChange()">
+        </div>
+        <div class="fgroup">
+          <label>出生地・都道府県 <span style="color:#b0a090;font-size:10px">任意・精度UP</span></label>
+          <select id="pref" onchange="onBirthChange()">
+            <option value="">未入力</option>
+            <option>北海道</option><option>青森県</option><option>岩手県</option><option>宮城県</option><option>秋田県</option><option>山形県</option><option>福島県</option>
+            <option>茨城県</option><option>栃木県</option><option>群馬県</option><option>埼玉県</option><option>千葉県</option><option>東京都</option><option>神奈川県</option>
+            <option>新潟県</option><option>富山県</option><option>石川県</option><option>福井県</option><option>山梨県</option><option>長野県</option>
+            <option>岐阜県</option><option>静岡県</option><option>愛知県</option><option>三重県</option>
+            <option>滋賀県</option><option>京都府</option><option>大阪府</option><option>兵庫県</option><option>奈良県</option><option>和歌山県</option>
+            <option>鳥取県</option><option>島根県</option><option>岡山県</option><option>広島県</option><option>山口県</option>
+            <option>徳島県</option><option>香川県</option><option>愛媛県</option><option>高知県</option>
+            <option>福岡県</option><option>佐賀県</option><option>長崎県</option><option>熊本県</option><option>大分県</option><option>宮崎県</option><option>鹿児島県</option><option>沖縄県</option>
+          </select>
+        </div>
+      </div>
       <div class="frow one"><div class="fgroup"><label>セッション目的・メモ</label><input type="text" id="memo" placeholder="例：ACCHEマネジメント、ヒーリングセッション など"></div></div>
     </div>
+
+    <!-- 星座判定結果 -->
+    <div class="form-card">
+      <h2>星座判定 <span>生年月日を入力すると自動表示</span></h2>
+      <div class="result-box" id="result_box">
+        <div class="rb-title">✦ 判定結果</div>
+        <div class="result-signs">
+          <div class="result-sign">
+            <div class="rs-lbl">太陽星座</div>
+            <div class="rs-emo" id="r_sun_e">—</div>
+            <div class="rs-name" id="r_sun_name">—</div>
+            <div class="rs-en" id="r_sun_en"></div>
+          </div>
+          <div class="result-sign">
+            <div class="rs-lbl">月星座 <span id="moon_badge"></span></div>
+            <div class="rs-emo" id="r_moon_e">—</div>
+            <div class="rs-name" id="r_moon_name">—</div>
+            <div class="rs-en" id="r_moon_en"></div>
+          </div>
+        </div>
+        <!-- 月星座が不確かな場合の手動修正 -->
+        <div class="moon-manual" id="moon_manual">
+          <div class="moon-manual-hint">⚠️ 出生時刻が未入力のため月星座は概算です。<br>正確な値は <a href="https://e-moon.net/moon-sign/" target="_blank">e-moon.net</a> で確認できます。</div>
+          <div class="fgroup">
+            <label>月星座を修正する場合（任意）</label>
+            <select id="moon_fix" onchange="onMoonFix()">
+              <option value="">このまま使用</option>
+              <option>牡羊座</option><option>牡牛座</option><option>双子座</option><option>蟹座</option>
+              <option>獅子座</option><option>乙女座</option><option>天秤座</option><option>蠍座</option>
+              <option>射手座</option><option>山羊座</option><option>水瓶座</option><option>魚座</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <button class="btn-main" onclick="gen()">プロンプトを生成する</button>
     <div class="err" id="e1">名前と生年月日を入力してください</div>
     <div id="pr" style="display:none;margin-top:1rem">
@@ -118,61 +191,233 @@ body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-
 </div>
 
 <script>
-const SIGNS=[
-  {name:'山羊座',en:'Capricorn',e:'♑',m:12,d:22,em:1,ed:19},
-  {name:'水瓶座',en:'Aquarius',e:'♒',m:1,d:20,em:2,ed:18},
-  {name:'魚座',en:'Pisces',e:'♓',m:2,d:19,em:3,ed:20},
-  {name:'牡羊座',en:'Aries',e:'♈',m:3,d:21,em:4,ed:19},
-  {name:'牡牛座',en:'Taurus',e:'♉',m:4,d:20,em:5,ed:20},
-  {name:'双子座',en:'Gemini',e:'♊',m:5,d:21,em:6,ed:20},
-  {name:'蟹座',en:'Cancer',e:'♋',m:6,d:21,em:7,ed:22},
-  {name:'獅子座',en:'Leo',e:'♌',m:7,d:23,em:8,ed:22},
-  {name:'乙女座',en:'Virgo',e:'♍',m:8,d:23,em:9,ed:22},
-  {name:'天秤座',en:'Libra',e:'♎',m:9,d:23,em:10,ed:22},
-  {name:'蠍座',en:'Scorpio',e:'♏',m:10,d:23,em:11,ed:21},
-  {name:'射手座',en:'Sagittarius',e:'♐',m:11,d:22,em:12,ed:21},
+// ── 星座データ ──
+const SIGN_DATA={
+  '牡羊座':{en:'Aries',e:'♈'},'牡牛座':{en:'Taurus',e:'♉'},'双子座':{en:'Gemini',e:'♊'},
+  '蟹座':{en:'Cancer',e:'♋'},'獅子座':{en:'Leo',e:'♌'},'乙女座':{en:'Virgo',e:'♍'},
+  '天秤座':{en:'Libra',e:'♎'},'蠍座':{en:'Scorpio',e:'♏'},'射手座':{en:'Sagittarius',e:'♐'},
+  '山羊座':{en:'Capricorn',e:'♑'},'水瓶座':{en:'Aquarius',e:'♒'},'魚座':{en:'Pisces',e:'♓'},
+};
+const SIGN_NAMES=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];
+
+// 都道府県→経度（概算）
+const PREF_LON={
+  '北海道':143.2,'青森県':140.7,'岩手県':141.1,'宮城県':140.9,'秋田県':140.1,
+  '山形県':140.4,'福島県':140.5,'茨城県':140.4,'栃木県':139.9,'群馬県':139.1,
+  '埼玉県':139.6,'千葉県':140.1,'東京都':139.7,'神奈川県':139.6,'新潟県':139.0,
+  '富山県':137.2,'石川県':136.6,'福井県':136.2,'山梨県':138.6,'長野県':138.2,
+  '岐阜県':136.7,'静岡県':138.4,'愛知県':137.0,'三重県':136.5,'滋賀県':136.2,
+  '京都府':135.8,'大阪府':135.5,'兵庫県':135.2,'奈良県':135.8,'和歌山県':135.2,
+  '鳥取県':134.2,'島根県':133.1,'岡山県':133.9,'広島県':132.5,'山口県':131.5,
+  '徳島県':134.6,'香川県':134.0,'愛媛県':132.8,'高知県':133.5,'福岡県':130.4,
+  '佐賀県':130.3,'長崎県':129.9,'熊本県':130.7,'大分県':131.6,'宮崎県':131.4,
+  '鹿児島県':130.6,'沖縄県':127.7
+};
+
+// ── 太陽星座（高精度：黄経テーブル使用） ──
+const SUN_CUSPS = [
+  // [月,日] から星座インデックス（牡羊座=0）
+  // 春分点基準で各星座の開始月日
+  {s:0,m:3,d:21},{s:1,m:4,d:20},{s:2,m:5,d:21},{s:3,m:6,d:21},
+  {s:4,m:7,d:23},{s:5,m:8,d:23},{s:6,m:9,d:23},{s:7,m:10,d:23},
+  {s:8,m:11,d:22},{s:9,m:12,d:22},{s:10,m:1,d:20},{s:11,m:2,d:19}
 ];
-function getSun(mo,dy){for(const s of SIGNS){if(s.m>s.em){if((mo===s.m&&dy>=s.d)||(mo===s.em&&dy<=s.ed))return s;}else{if((mo===s.m&&dy>=s.d)||(mo>s.m&&mo<s.em)||(mo===s.em&&dy<=s.ed))return s;}}return SIGNS[0];}
-function getMoon(y,mo,dy){const diff=Math.floor((new Date(y,mo-1,dy)-new Date(2000,0,1))/86400000);const idx=Math.floor(((diff%354)+354)%354/29.5)%12;const n=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];const en=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];const e=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];return{name:n[idx],en:en[idx],e:e[idx]};}
-let cd={};
-function gen(){
-  const name=document.getElementById('name').value.trim();
-  const y=parseInt(document.getElementById('yr').value);
-  const mo=parseInt(document.getElementById('mo').value);
-  const dy=parseInt(document.getElementById('dy').value);
-  const bt=document.getElementById('bt').value;
-  const memo=document.getElementById('memo').value.trim();
-  if(!name||!y||!mo||!dy){document.getElementById('e1').style.display='block';return;}
-  document.getElementById('e1').style.display='none';
-  const sun=getSun(mo,dy);const moon=getMoon(y,mo,dy);
-  cd={name,y,mo,dy,bt,memo,sun,moon};
-  const p=`以下のクライアントの占星術カルテを作成してください。\n\n名前：${name}さん\n生年月日：${y}年${mo}月${dy}日${bt?' / 出生時刻：'+bt:''}\n太陽星座：${sun.name}（${sun.en}）\n月星座：${moon.name}（${moon.en}）${memo?'\nセッション目的：'+memo:''}\n\n各項目200字前後で、専門的かつ実用的に記述してください。\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{\n  "sun_detail": "太陽星座（${sun.name}）の本質・特徴・行動パターン",\n  "moon_detail": "月星座（${moon.name}）の内面・感情・無意識のパターン",\n  "strengths": "この組み合わせの強み・才能・輝く場面",\n  "approach": "セッションや会話でのアプローチ注意点（地雷・響くポイント・信頼の作り方）",\n  "tip": "扱いのワンポイント（一言Tips。箇条書き3つ）"\n}`;
-  document.getElementById('pb').textContent=p;
-  document.getElementById('pr').style.display='block';
+function getSunSign(mo, dy) {
+  // 逆順でチェック
+  const order = [9,10,11,0,1,2,3,4,5,6,7,8]; // 12月→1月順
+  for(let i = SUN_CUSPS.length-1; i>=0; i--){
+    const c = SUN_CUSPS[i];
+    if(c.m < 3){ // 1月・2月
+      if(mo===c.m && dy>=c.d) return SIGN_NAMES[c.s];
+    } else {
+      if(mo===c.m && dy>=c.d) return SIGN_NAMES[c.s];
+      if(mo>c.m && mo<(c.s<11?SUN_CUSPS[c.s+1].m:13)) return SIGN_NAMES[c.s];
+    }
+  }
+  // シンプルな判定に fallback
+  const simple=[
+    {name:'山羊座',sm:12,sd:22,em:1,ed:19},{name:'水瓶座',sm:1,sd:20,em:2,ed:18},
+    {name:'魚座',sm:2,sd:19,em:3,ed:20},{name:'牡羊座',sm:3,sd:21,em:4,ed:19},
+    {name:'牡牛座',sm:4,sd:20,em:5,ed:20},{name:'双子座',sm:5,sd:21,em:6,ed:20},
+    {name:'蟹座',sm:6,sd:21,em:7,ed:22},{name:'獅子座',sm:7,sd:23,em:8,ed:22},
+    {name:'乙女座',sm:8,sd:23,em:9,ed:22},{name:'天秤座',sm:9,sd:23,em:10,ed:22},
+    {name:'蠍座',sm:10,sd:23,em:11,ed:21},{name:'射手座',sm:11,sd:22,em:12,ed:21},
+  ];
+  for(const s of simple){
+    if(s.sm>s.em){if((mo===s.sm&&dy>=s.sd)||(mo===s.em&&dy<=s.ed))return s.name;}
+    else{if((mo===s.sm&&dy>=s.sd)||(mo>s.sm&&mo<s.em)||(mo===s.em&&dy<=s.ed))return s.name;}
+  }
+  return '山羊座';
 }
-function cp(){
+
+// ── 月星座（高精度：Jean Meeus アルゴリズム） ──
+function getMoonLon(year, month, day, hour) {
+  // Julianday
+  if(month <= 2){ year--; month+=12; }
+  const A = Math.floor(year/100);
+  const B = 2 - A + Math.floor(A/4);
+  const JD = Math.floor(365.25*(year+4716)) + Math.floor(30.6001*(month+1)) + day + hour/24 + B - 1524.5;
+  const T = (JD - 2451545.0) / 36525.0;
+  // 月の平均黄経
+  const L0 = 218.3164477 + 481267.88123421*T - 0.0015786*T*T + T*T*T/538841 - T*T*T*T/65194000;
+  // 月の平均近点角
+  const M_ = 134.9633964 + 477198.8676313*T + 0.0089970*T*T + T*T*T/69699 - T*T*T*T/14712000;
+  // 太陽の平均近点角
+  const M = 357.5291092 + 35999.0502909*T - 0.0001536*T*T + T*T*T/24490000;
+  // 月の緯度引数
+  const F = 93.2720950 + 483202.0175233*T - 0.0036539*T*T - T*T*T/3526000 + T*T*T*T/863310000;
+  // 月と太陽の平均離角
+  const D = 297.8501921 + 445267.1114034*T - 0.0018819*T*T + T*T*T/545868 - T*T*T*T/113065000;
+
+  const r = Math.PI/180;
+  // 主要補正項
+  const dL = 6288774*Math.sin(M_*r)
+    + 1274027*Math.sin((2*D - M_)*r)
+    + 658314*Math.sin(2*D*r)
+    + 213618*Math.sin(2*M_*r)
+    - 185116*Math.sin(M*r)
+    - 114332*Math.sin(2*F*r)
+    + 58793*Math.sin((2*D - 2*M_)*r)
+    + 57066*Math.sin((2*D - M - M_)*r)
+    + 53322*Math.sin((2*D + M_)*r)
+    + 45758*Math.sin((2*D - M)*r)
+    - 40923*Math.sin((M - M_)*r)
+    - 34720*Math.sin(D*r)
+    - 30383*Math.sin((M + M_)*r)
+    + 15327*Math.sin((2*D - 2*F)*r)
+    - 12528*Math.sin(M_*r + 2*F*r)
+    + 10980*Math.sin((M_ - 2*F)*r)
+    + 10675*Math.sin((4*D - M_)*r)
+    + 10034*Math.sin(3*M_*r)
+    + 8548*Math.sin((4*D - 2*M_)*r)
+    - 7888*Math.sin((2*D + M - M_)*r)
+    - 6766*Math.sin((2*D + M)*r)
+    - 5163*Math.sin((D - M_)*r);
+
+  let lon = ((L0 + dL/1000000) % 360 + 360) % 360;
+  return lon;
+}
+
+function getMoonSign(y, mo, dy, hourJST) {
+  // JST → UTC
+  const utcHour = hourJST - 9;
+  let uy=y, um=mo, ud=dy, uh=utcHour;
+  if(uh<0){uh+=24; ud--; if(ud<1){um--;if(um<1){um=12;uy--;}ud=new Date(uy,um,0).getDate();}}
+  const lon = getMoonLon(uy, um, ud, uh);
+  const idx = Math.floor(lon / 30);
+  return SIGN_NAMES[idx % 12];
+}
+
+// ── 状態 ──
+let cd = {};
+let moonIsApprox = false;
+
+function onBirthChange() {
+  const y = parseInt(document.getElementById('yr').value);
+  const mo = parseInt(document.getElementById('mo').value);
+  const dy = parseInt(document.getElementById('dy').value);
+  const bt = document.getElementById('bt').value;
+  const pref = document.getElementById('pref').value;
+  if(!y || !mo || !dy) { document.getElementById('result_box').classList.remove('show'); return; }
+
+  // 太陽星座
+  const sunName = getSunSign(mo, dy);
+  const sunD = SIGN_DATA[sunName];
+
+  // 月星座
+  let moonName, isApprox;
+  if(bt) {
+    const [h, m] = bt.split(':').map(Number);
+    const hourJST = h + m/60;
+    moonName = getMoonSign(y, mo, dy, hourJST);
+    isApprox = false;
+  } else {
+    // 時刻不明：正午(12:00 JST)で計算
+    moonName = getMoonSign(y, mo, dy, 12);
+    isApprox = true;
+  }
+
+  moonIsApprox = isApprox;
+  const moonD = SIGN_DATA[moonName];
+
+  // 結果表示
+  document.getElementById('r_sun_e').textContent = sunD.e;
+  document.getElementById('r_sun_name').textContent = sunName;
+  document.getElementById('r_sun_en').textContent = sunD.en.toUpperCase();
+  document.getElementById('r_moon_e').textContent = moonD.e;
+  document.getElementById('r_moon_name').textContent = moonName;
+  document.getElementById('r_moon_en').textContent = moonD.en.toUpperCase();
+  document.getElementById('moon_badge').innerHTML = isApprox
+    ? '<span class="info-badge badge-manual">概算</span>'
+    : '<span class="info-badge badge-auto">高精度</span>';
+  document.getElementById('moon_manual').className = 'moon-manual' + (isApprox ? ' show' : '');
+  document.getElementById('moon_fix').value = '';
+  document.getElementById('result_box').classList.add('show');
+
+  // cdを更新
+  cd.sun = {name:sunName, ...sunD};
+  cd.moon = {name:moonName, ...moonD};
+}
+
+function onMoonFix() {
+  const v = document.getElementById('moon_fix').value;
+  if(!v) return;
+  const moonD = SIGN_DATA[v];
+  document.getElementById('r_moon_e').textContent = moonD.e;
+  document.getElementById('r_moon_name').textContent = v;
+  document.getElementById('r_moon_en').textContent = moonD.en.toUpperCase();
+  document.getElementById('moon_badge').innerHTML = '<span class="info-badge badge-auto">修正済</span>';
+  cd.moon = {name:v, ...moonD};
+}
+
+function gen() {
+  const name = document.getElementById('name').value.trim();
+  const y = parseInt(document.getElementById('yr').value);
+  const mo = parseInt(document.getElementById('mo').value);
+  const dy = parseInt(document.getElementById('dy').value);
+  const bt = document.getElementById('bt').value;
+  const pref = document.getElementById('pref').value;
+  const memo = document.getElementById('memo').value.trim();
+  if(!name || !y || !mo || !dy || !cd.sun) {
+    document.getElementById('e1').style.display='block'; return;
+  }
+  document.getElementById('e1').style.display='none';
+  cd = {...cd, name, y, mo, dy, bt, pref, memo};
+
+  const birthInfo = [`${y}年${mo}月${dy}日`, bt?`出生時刻：${bt}`:'', pref?`出生地：${pref}`:''].filter(Boolean).join(' / ');
+  const p = `以下のクライアントの占星術カルテを作成してください。\n\n名前：${name}さん\n生年月日：${birthInfo}\n太陽星座：${cd.sun.name}（${cd.sun.en}）\n月星座：${cd.moon.name}（${cd.moon.en}）${memo?'\nセッション目的：'+memo:''}\n\n各項目200字前後で、専門的かつ実用的に記述してください。\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{\n  "sun_detail": "太陽星座（${cd.sun.name}）の本質・特徴・行動パターン",\n  "moon_detail": "月星座（${cd.moon.name}）の内面・感情・無意識のパターン",\n  "strengths": "この組み合わせの強み・才能・輝く場面",\n  "approach": "セッションや会話でのアプローチ注意点（地雷・響くポイント・信頼の作り方）",\n  "tip": "扱いのワンポイント（一言Tips。箇条書き3つ）"\n}`;
+  document.getElementById('pb').textContent = p;
+  document.getElementById('pr').style.display = 'block';
+}
+
+function cp() {
   navigator.clipboard.writeText(document.getElementById('pb').textContent).then(()=>{
-    const b=document.querySelectorAll('.btn-main')[1];
-    b.textContent='コピーしました！';setTimeout(()=>b.textContent='コピーする',2000);
+    const b = document.querySelectorAll('.btn-main')[1];
+    b.textContent='コピーしました！'; setTimeout(()=>b.textContent='コピーする',2000);
   });
 }
-function render(){
-  const raw=document.getElementById('ji').value.trim();
+
+function render() {
+  const raw = document.getElementById('ji').value.trim();
   let d;
-  try{d=JSON.parse(raw.replace(/```json|```/g,'').trim());if(!d.sun_detail)throw 0;}
-  catch{document.getElementById('e2').style.display='block';return;}
+  try { d=JSON.parse(raw.replace(/```json|```/g,'').trim()); if(!d.sun_detail) throw 0; }
+  catch { document.getElementById('e2').style.display='block'; return; }
   document.getElementById('e2').style.display='none';
-  if(!cd.name){document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';document.getElementById('e2').style.display='block';return;}
+  if(!cd.name) {
+    document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';
+    document.getElementById('e2').style.display='block'; return;
+  }
   const tipLines=(d.tip||'').split(/\n|・/).filter(s=>s.trim()).map(s=>`<li>${s.trim().replace(/^[・\-\*]\s*/,'')}</li>`).join('');
+  const birthMeta=[`${cd.y}年${cd.mo}月${cd.dy}日生まれ`, cd.bt?`${cd.bt}生まれ`:'', cd.pref?cd.pref:''].filter(Boolean).join('　');
   document.getElementById('cw').innerHTML=`
 <div class="carte">
   <div class="carte-top">
     <div class="carte-name">${cd.name} さん</div>
-    <div class="carte-date">${cd.y}年${cd.mo}月${cd.dy}日生まれ${cd.memo?' ／ '+cd.memo:''}</div>
+    <div class="carte-date">${birthMeta}${cd.memo?' ／ '+cd.memo:''}</div>
   </div>
   <div class="signs-bar">
-    <div class="sc"><div class="sc-lbl">太陽星座</div><div class="sc-emo">${cd.sun.e}</div><div class="sc-name">${cd.sun.name}</div><div class="sc-en">${cd.sun.en}</div></div>
-    <div class="sc"><div class="sc-lbl">月星座</div><div class="sc-emo">${cd.moon.e}</div><div class="sc-name">${cd.moon.name}</div><div class="sc-en">${cd.moon.en}</div></div>
+    <div class="sc"><div class="sc-lbl">太陽星座</div><div class="sc-emo">${cd.sun.e}</div><div class="sc-name">${cd.sun.name}</div><div class="sc-en">${cd.sun.en.toUpperCase()}</div></div>
+    <div class="sc"><div class="sc-lbl">月星座</div><div class="sc-emo">${cd.moon.e}</div><div class="sc-name">${cd.moon.name}</div><div class="sc-en">${cd.moon.en.toUpperCase()}</div></div>
   </div>
   <div class="section"><div class="sec-title">太陽星座の本質 — ${cd.sun.name}</div><div class="sec-text">${d.sun_detail}</div></div>
   <div class="section"><div class="sec-title">月星座の内面 — ${cd.moon.name}</div><div class="sec-text">${d.moon_detail}</div></div>
@@ -183,6 +428,7 @@ function render(){
 </div>`;
   sw('t3');
 }
+
 function sw(id){
   ['t1','t2','t3'].forEach((t,i)=>{
     document.querySelectorAll('.tab')[i].classList.toggle('active',t===id);
