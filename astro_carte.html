@@ -397,10 +397,19 @@ function cp() {
   });
 }
 
+function normalizeJSON(s){
+  return s
+    .replace(/```json|```/g,'')
+    .replace(/[\u201C\u201D\u201E\u2033\u3003]/g,'"')  // 全角ダブルクォート→半角
+    .replace(/[\u2018\u2019\u2032]/g,"'")              // 全角シングルクォート→半角
+    .replace(/\uFF1A/g,':')                            // 全角コロン→半角
+    .replace(/\uFF0C/g,',')                            // 全角カンマ→半角
+    .replace(/\uFF5B/g,'{').replace(/\uFF5D/g,'}')     // 全角波括弧→半角
+    .trim();
+}
 function render() {
   const raw = document.getElementById('ji').value.trim();
-  let d;
-  try { d=JSON.parse(raw.replace(/```json|```/g,'').trim()); if(!d.sun_detail) throw 0; }
+  try { d=JSON.parse(normalizeJSON(raw)); if(!d.sun_detail) throw 0; }
   catch { document.getElementById('e2').style.display='block'; return; }
   document.getElementById('e2').style.display='none';
   if(!cd.name) {
