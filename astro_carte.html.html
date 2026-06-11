@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星読みカルテ ✦ Libera Finance Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#f5f3ef;font-family:'Noto Sans JP',sans-serif;color:#1a1612;min-height:100vh;}
+.app{max-width:560px;margin:0 auto;padding:0 0 3rem;}
+.hdr{text-align:center;padding:1.75rem 1.5rem 1.25rem;border-bottom:2px solid #c8922a;background:#fff;margin-bottom:1.5rem;}
+.hdr h1{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:500;letter-spacing:2px;margin-bottom:5px;}
+.hdr p{font-size:11px;color:#a08060;letter-spacing:2px;}
+.tabs{display:flex;border-bottom:1px solid #e0d8cc;background:#fff;margin-bottom:1.5rem;}
+.tab{flex:1;padding:12px 8px;text-align:center;font-size:12px;letter-spacing:1px;cursor:pointer;color:#b0a090;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:#c8922a;border-bottom:2px solid #c8922a;font-weight:500;}
+.panel{display:none;padding:0 1rem;}
+.panel.active{display:block;}
+.form-card{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;padding:1.25rem;margin-bottom:1rem;}
+.form-card h2{font-size:13px;font-weight:500;color:#c8922a;letter-spacing:1px;margin-bottom:1rem;padding-bottom:8px;border-bottom:0.5px solid #e8e0d4;}
+.frow{display:grid;gap:10px;margin-bottom:10px;}
+.frow.two{grid-template-columns:1fr 1fr;}
+.frow.three{grid-template-columns:2fr 1fr 1fr;}
+.frow.one{grid-template-columns:1fr;}
+.fgroup label{display:block;font-size:11px;color:#a08060;margin-bottom:4px;letter-spacing:1px;}
+.fgroup input{width:100%;padding:9px 11px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:14px;font-family:'Noto Sans JP',sans-serif;background:#fff;color:#1a1612;outline:none;-webkit-appearance:none;}
+.fgroup input:focus{border-color:#c8922a;}
+.fgroup input::placeholder{color:#c8c0b4;}
+.btn-main{width:100%;padding:13px;background:#c8922a;border:none;border-radius:6px;color:#fff;font-size:14px;font-weight:500;cursor:pointer;letter-spacing:2px;font-family:'Noto Sans JP',sans-serif;}
+.btn-main:hover{background:#b07820;}
+.btn-sub{width:100%;padding:10px;background:#fff;border:0.5px solid #e0d8cc;border-radius:6px;color:#a08060;font-size:13px;cursor:pointer;margin-top:8px;font-family:'Noto Sans JP',sans-serif;}
+.hint-box{background:#fdf8f0;border-left:3px solid #c8922a;border-radius:0 6px 6px 0;padding:10px 14px;font-size:13px;color:#a08060;line-height:1.9;margin-bottom:1rem;}
+.hint-box b{color:#c8922a;font-weight:500;}
+.prompt-area{background:#f8f5f0;border:0.5px solid #e0d8cc;border-radius:6px;padding:1rem;font-size:12px;line-height:2;color:#6a5a48;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;margin:1rem 0;}
+.json-area{width:100%;padding:10px;border:0.5px solid #e0d8cc;border-radius:6px;font-size:12px;font-family:monospace;min-height:90px;resize:vertical;background:#fff;color:#1a1612;outline:none;}
+.json-area:focus{border-color:#c8922a;}
+.err{color:#c05030;font-size:12px;margin-top:6px;display:none;}
+/* カルテ */
+.carte{background:#fff;border:0.5px solid #e0d8cc;border-radius:10px;overflow:hidden;}
+.carte-top{background:linear-gradient(135deg,#1e0e06,#2e1a0a);padding:1.5rem;color:#f0e6c8;text-align:center;}
+.carte-name{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:300;letter-spacing:3px;margin-bottom:4px;}
+.carte-date{font-size:12px;color:#a08060;letter-spacing:1px;}
+.signs-bar{display:grid;grid-template-columns:1fr 1fr;border-bottom:0.5px solid #e8e0d4;}
+.sc{padding:14px;text-align:center;}
+.sc:first-child{border-right:0.5px solid #e8e0d4;}
+.sc-lbl{font-size:10px;color:#c8922a;letter-spacing:2px;margin-bottom:4px;}
+.sc-emo{font-size:24px;margin-bottom:3px;}
+.sc-name{font-size:15px;font-weight:500;color:#1a1612;}
+.sc-en{font-size:10px;color:#b0a090;margin-top:2px;}
+.section{padding:1.25rem;border-bottom:0.5px solid #f0e8e0;}
+.section:last-child{border-bottom:none;}
+.sec-title{font-size:12px;font-weight:500;letter-spacing:2px;color:#c8922a;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.sec-title::before{content:'';display:inline-block;width:3px;height:14px;background:#c8922a;border-radius:2px;flex-shrink:0;}
+.sec-text{font-size:14px;line-height:2.2;color:#2a1e14;font-family:'Noto Serif JP',serif;}
+.tip-box{background:#fffbf3;border:1px solid #f0d888;border-radius:6px;padding:12px 16px;}
+.tip-box ul{padding-left:1.2rem;list-style:disc;}
+.tip-box li{font-size:14px;line-height:2.1;color:#7a5a10;font-family:'Noto Serif JP',serif;margin-bottom:4px;}
+.carte-footer{padding:1rem;text-align:center;font-size:10px;color:#c0b0a0;letter-spacing:2px;background:#f8f5f0;border-top:0.5px solid #e8e0d4;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <h1>✦ 星読みカルテ</h1>
+    <p>LIBERA FINANCE WORKS — セッション準備用</p>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="sw('t1')">STEP 1　入力</div>
+    <div class="tab" onclick="sw('t2')">STEP 2　貼り付け</div>
+    <div class="tab" onclick="sw('t3')">STEP 3　カルテ</div>
+  </div>
+
+  <!-- STEP1 -->
+  <div class="panel active" id="t1">
+    <div class="form-card">
+      <h2>クライアント情報</h2>
+      <div class="frow one"><div class="fgroup"><label>お名前</label><input type="text" id="name" placeholder="例：ゆきさん"></div></div>
+      <div class="frow three">
+        <div class="fgroup"><label>生年（西暦）</label><input type="number" id="yr" placeholder="1989" style="text-align:center"></div>
+        <div class="fgroup"><label>月</label><input type="number" id="mo" placeholder="9" style="text-align:center"></div>
+        <div class="fgroup"><label>日</label><input type="number" id="dy" placeholder="1" style="text-align:center"></div>
+      </div>
+      <div class="frow one"><div class="fgroup"><label>出生時刻（任意）</label><input type="time" id="bt"></div></div>
+      <div class="frow one"><div class="fgroup"><label>セッション目的・メモ</label><input type="text" id="memo" placeholder="例：ACCHEマネジメント、ヒーリングセッション など"></div></div>
+    </div>
+    <button class="btn-main" onclick="gen()">プロンプトを生成する</button>
+    <div class="err" id="e1">名前と生年月日を入力してください</div>
+    <div id="pr" style="display:none;margin-top:1rem">
+      <div class="hint-box">下のテキストをコピーして、<b>Claudeのチャットに送信</b>してください。返ってきたJSONをSTEP 2に貼り付けます。</div>
+      <div class="prompt-area" id="pb"></div>
+      <button class="btn-main" onclick="cp()">コピーする</button>
+      <button class="btn-sub" onclick="sw('t2')">コピーしたら → STEP 2へ</button>
+    </div>
+  </div>
+
+  <!-- STEP2 -->
+  <div class="panel" id="t2">
+    <div class="form-card">
+      <h2>Claudeの返答を貼り付け</h2>
+      <div class="hint-box">Claudeから返ってきた <b>{"sun_detail":...}</b> のJSON全体をそのまま貼り付けてください</div>
+      <div class="fgroup"><label>JSON貼り付け</label>
+        <textarea class="json-area" id="ji" placeholder='{"sun_detail":"...","moon_detail":"...","strengths":"...","approach":"...","tip":"..."}'></textarea>
+      </div>
+    </div>
+    <button class="btn-main" onclick="render()">カルテを表示する</button>
+    <div class="err" id="e2">有効なJSONを貼り付けてください</div>
+    <button class="btn-sub" onclick="sw('t1')">← STEP 1に戻る</button>
+  </div>
+
+  <!-- STEP3 -->
+  <div class="panel" id="t3">
+    <div id="cw"><p style="text-align:center;color:#b0a090;padding:2rem;font-size:13px">STEP 2でカルテを生成してください</p></div>
+    <button class="btn-sub" style="margin-top:1rem" onclick="sw('t1')">← 新しいカルテを作る</button>
+  </div>
+</div>
+
+<script>
+const SIGNS=[
+  {name:'山羊座',en:'Capricorn',e:'♑',m:12,d:22,em:1,ed:19},
+  {name:'水瓶座',en:'Aquarius',e:'♒',m:1,d:20,em:2,ed:18},
+  {name:'魚座',en:'Pisces',e:'♓',m:2,d:19,em:3,ed:20},
+  {name:'牡羊座',en:'Aries',e:'♈',m:3,d:21,em:4,ed:19},
+  {name:'牡牛座',en:'Taurus',e:'♉',m:4,d:20,em:5,ed:20},
+  {name:'双子座',en:'Gemini',e:'♊',m:5,d:21,em:6,ed:20},
+  {name:'蟹座',en:'Cancer',e:'♋',m:6,d:21,em:7,ed:22},
+  {name:'獅子座',en:'Leo',e:'♌',m:7,d:23,em:8,ed:22},
+  {name:'乙女座',en:'Virgo',e:'♍',m:8,d:23,em:9,ed:22},
+  {name:'天秤座',en:'Libra',e:'♎',m:9,d:23,em:10,ed:22},
+  {name:'蠍座',en:'Scorpio',e:'♏',m:10,d:23,em:11,ed:21},
+  {name:'射手座',en:'Sagittarius',e:'♐',m:11,d:22,em:12,ed:21},
+];
+function getSun(mo,dy){for(const s of SIGNS){if(s.m>s.em){if((mo===s.m&&dy>=s.d)||(mo===s.em&&dy<=s.ed))return s;}else{if((mo===s.m&&dy>=s.d)||(mo>s.m&&mo<s.em)||(mo===s.em&&dy<=s.ed))return s;}}return SIGNS[0];}
+function getMoon(y,mo,dy){const diff=Math.floor((new Date(y,mo-1,dy)-new Date(2000,0,1))/86400000);const idx=Math.floor(((diff%354)+354)%354/29.5)%12;const n=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];const en=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];const e=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];return{name:n[idx],en:en[idx],e:e[idx]};}
+let cd={};
+function gen(){
+  const name=document.getElementById('name').value.trim();
+  const y=parseInt(document.getElementById('yr').value);
+  const mo=parseInt(document.getElementById('mo').value);
+  const dy=parseInt(document.getElementById('dy').value);
+  const bt=document.getElementById('bt').value;
+  const memo=document.getElementById('memo').value.trim();
+  if(!name||!y||!mo||!dy){document.getElementById('e1').style.display='block';return;}
+  document.getElementById('e1').style.display='none';
+  const sun=getSun(mo,dy);const moon=getMoon(y,mo,dy);
+  cd={name,y,mo,dy,bt,memo,sun,moon};
+  const p=`以下のクライアントの占星術カルテを作成してください。\n\n名前：${name}さん\n生年月日：${y}年${mo}月${dy}日${bt?' / 出生時刻：'+bt:''}\n太陽星座：${sun.name}（${sun.en}）\n月星座：${moon.name}（${moon.en}）${memo?'\nセッション目的：'+memo:''}\n\n各項目200字前後で、専門的かつ実用的に記述してください。\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{\n  "sun_detail": "太陽星座（${sun.name}）の本質・特徴・行動パターン",\n  "moon_detail": "月星座（${moon.name}）の内面・感情・無意識のパターン",\n  "strengths": "この組み合わせの強み・才能・輝く場面",\n  "approach": "セッションや会話でのアプローチ注意点（地雷・響くポイント・信頼の作り方）",\n  "tip": "扱いのワンポイント（一言Tips。箇条書き3つ）"\n}`;
+  document.getElementById('pb').textContent=p;
+  document.getElementById('pr').style.display='block';
+}
+function cp(){
+  navigator.clipboard.writeText(document.getElementById('pb').textContent).then(()=>{
+    const b=document.querySelectorAll('.btn-main')[1];
+    b.textContent='コピーしました！';setTimeout(()=>b.textContent='コピーする',2000);
+  });
+}
+function render(){
+  const raw=document.getElementById('ji').value.trim();
+  let d;
+  try{d=JSON.parse(raw.replace(/```json|```/g,'').trim());if(!d.sun_detail)throw 0;}
+  catch{document.getElementById('e2').style.display='block';return;}
+  document.getElementById('e2').style.display='none';
+  if(!cd.name){document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';document.getElementById('e2').style.display='block';return;}
+  const tipLines=(d.tip||'').split(/\n|・/).filter(s=>s.trim()).map(s=>`<li>${s.trim().replace(/^[・\-\*]\s*/,'')}</li>`).join('');
+  document.getElementById('cw').innerHTML=`
+<div class="carte">
+  <div class="carte-top">
+    <div class="carte-name">${cd.name} さん</div>
+    <div class="carte-date">${cd.y}年${cd.mo}月${cd.dy}日生まれ${cd.memo?' ／ '+cd.memo:''}</div>
+  </div>
+  <div class="signs-bar">
+    <div class="sc"><div class="sc-lbl">太陽星座</div><div class="sc-emo">${cd.sun.e}</div><div class="sc-name">${cd.sun.name}</div><div class="sc-en">${cd.sun.en}</div></div>
+    <div class="sc"><div class="sc-lbl">月星座</div><div class="sc-emo">${cd.moon.e}</div><div class="sc-name">${cd.moon.name}</div><div class="sc-en">${cd.moon.en}</div></div>
+  </div>
+  <div class="section"><div class="sec-title">太陽星座の本質 — ${cd.sun.name}</div><div class="sec-text">${d.sun_detail}</div></div>
+  <div class="section"><div class="sec-title">月星座の内面 — ${cd.moon.name}</div><div class="sec-text">${d.moon_detail}</div></div>
+  <div class="section"><div class="sec-title">強み・才能</div><div class="sec-text">${d.strengths}</div></div>
+  <div class="section"><div class="sec-title">アプローチ注意点</div><div class="sec-text">${d.approach}</div></div>
+  <div class="section"><div class="sec-title">扱いのワンポイント</div><div class="tip-box"><ul>${tipLines}</ul></div></div>
+  <div class="carte-footer">LIBERA FINANCE WORKS — Sachiko Kumagai</div>
+</div>`;
+  sw('t3');
+}
+function sw(id){
+  ['t1','t2','t3'].forEach((t,i)=>{
+    document.querySelectorAll('.tab')[i].classList.toggle('active',t===id);
+    document.getElementById(t).classList.toggle('active',t===id);
+  });
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>

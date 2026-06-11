@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星のミニ鑑定 ✦ Libera Finance Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0a0608;font-family:'Noto Serif JP',serif;color:#f0e6c8;min-height:100vh;}
+.app{max-width:480px;margin:0 auto;padding:0 0 3rem;}
+.hdr{text-align:center;padding:2rem 1.5rem 1.25rem;border-bottom:1px solid #3a2010;background:#120808;position:relative;}
+.hdr::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:200px;height:1px;background:linear-gradient(90deg,transparent,#c8922a,transparent);}
+.hdr-brand{font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;color:#c8922a;margin-bottom:6px;}
+.hdr-title{font-size:22px;font-weight:300;letter-spacing:3px;color:#f0e6c8;margin-bottom:4px;}
+.hdr-sub{font-size:12px;color:#8a7060;letter-spacing:1px;}
+.tabs{display:flex;border-bottom:1px solid #2a1408;background:#0e0806;}
+.tab{flex:1;padding:13px 8px;text-align:center;font-size:12px;letter-spacing:1.5px;font-family:'Cinzel',serif;cursor:pointer;color:#5a3818;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:#c8922a;border-bottom:2px solid #c8922a;}
+.panel{display:none;padding:1.5rem;}
+.panel.active{display:block;}
+.flabel{display:block;font-size:11px;letter-spacing:2px;color:#c8922a;margin-bottom:6px;font-family:'Cinzel',serif;text-transform:uppercase;}
+.finput{width:100%;background:#160c08;border:1px solid #2a1408;border-radius:4px;padding:11px 13px;color:#f0e6c8;font-size:16px;font-family:'Noto Serif JP',serif;outline:none;-webkit-appearance:none;}
+.finput:focus{border-color:#c8922a;}
+.finput::placeholder{color:#3a2010;}
+.fgroup{margin-bottom:1rem;}
+.date-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;}
+.btn-gold{width:100%;padding:14px;background:linear-gradient(135deg,#7a4a10,#c8922a,#7a4a10);border:none;border-radius:4px;color:#0a0608;font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;font-weight:600;cursor:pointer;text-transform:uppercase;margin-top:4px;}
+.btn-ghost{width:100%;padding:11px;background:transparent;border:1px solid #2a1408;border-radius:4px;color:#8a7060;font-size:13px;letter-spacing:1.5px;cursor:pointer;font-family:'Cinzel',serif;margin-top:8px;}
+.hint-box{background:#1a0d08;border-left:3px solid #c8922a;border-radius:0 4px 4px 0;padding:10px 14px;font-size:13px;color:#a08060;line-height:1.9;margin-bottom:1rem;}
+.hint-box b{color:#c8922a;font-weight:400;}
+.prompt-area{background:#0e0806;border:1px solid #3a2010;border-radius:6px;padding:1rem;font-size:12px;line-height:2;color:#d4c4a8;white-space:pre-wrap;word-break:break-all;max-height:200px;overflow-y:auto;margin:1rem 0;}
+.step-badge{display:inline-block;background:#1a0d08;border:1px solid #c8922a;border-radius:20px;padding:4px 14px;font-size:11px;letter-spacing:2px;color:#c8922a;font-family:'Cinzel',serif;margin-bottom:10px;}
+.json-area{width:100%;background:#0e0806;border:1px solid #2a1408;border-radius:4px;padding:11px;color:#d4c4a8;font-size:13px;font-family:monospace;min-height:90px;resize:vertical;outline:none;}
+.json-area:focus{border-color:#c8922a;}
+.err{color:#c85030;font-size:12px;margin-top:6px;display:none;}
+/* 鑑定書 */
+.card{background:#0e0806;border:1px solid #3a2010;border-radius:8px;overflow:hidden;}
+.card-top{background:linear-gradient(160deg,#1e0e06,#120808);padding:1.5rem;text-align:center;border-bottom:1px solid #2a1408;position:relative;}
+.card-top::before,.card-top::after{content:'';position:absolute;left:50%;transform:translateX(-50%);width:100px;height:1px;background:linear-gradient(90deg,transparent,#c8922a,transparent);}
+.card-top::before{top:0;}
+.card-top::after{bottom:0;}
+.card-brand{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:#6a4020;margin-bottom:8px;}
+.card-name{font-size:26px;font-weight:300;letter-spacing:4px;color:#f0e6c8;margin-bottom:4px;}
+.card-date{font-size:12px;color:#8a7060;letter-spacing:1px;}
+.card-star{color:#c8922a;font-size:16px;letter-spacing:10px;margin-top:10px;}
+.signs-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #1a0d08;}
+.sign-cell{padding:16px;text-align:center;}
+.sign-cell:first-child{border-right:1px solid #1a0d08;}
+.sign-lbl{font-size:10px;letter-spacing:2px;color:#c8922a;font-family:'Cinzel',serif;margin-bottom:5px;}
+.sign-emo{font-size:28px;margin-bottom:4px;}
+.sign-nm{font-size:16px;color:#f0e6c8;letter-spacing:1px;}
+.sign-en{font-size:10px;color:#5a4030;font-family:'Cinzel',serif;letter-spacing:1px;margin-top:3px;}
+.card-body{padding:1.5rem;}
+.card-msg{font-size:16px;line-height:2.5;color:#d4c4a8;}
+.card-footer{padding:1rem;text-align:center;border-top:1px solid #1a0d08;background:#080406;}
+.card-footer-txt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:#4a2810;}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="hdr">
+    <div class="hdr-brand">LIBERA FINANCE WORKS</div>
+    <div class="hdr-title">✦ 星のミニ鑑定 ✦</div>
+    <div class="hdr-sub">あなたの星座が伝えるメッセージ</div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="sw('s1')">STEP 1　入力</div>
+    <div class="tab" onclick="sw('s2')">STEP 2　貼り付け</div>
+    <div class="tab" onclick="sw('s3')">STEP 3　鑑定書</div>
+  </div>
+
+  <!-- STEP1 -->
+  <div class="panel active" id="s1">
+    <div class="step-badge">STEP 1 — 情報入力</div>
+    <div class="fgroup"><label class="flabel">お名前</label><input class="finput" type="text" id="name" placeholder="例：さくら"></div>
+    <div class="fgroup"><label class="flabel">生年月日</label>
+      <div class="date-row">
+        <input class="finput" type="number" id="yr" placeholder="1990" style="text-align:center">
+        <input class="finput" type="number" id="mo" placeholder="月" style="text-align:center">
+        <input class="finput" type="number" id="dy" placeholder="日" style="text-align:center">
+      </div>
+    </div>
+    <div class="fgroup"><label class="flabel">出生時刻（任意）</label><input class="finput" type="time" id="bt"></div>
+    <button class="btn-gold" onclick="gen()">✦ プロンプトを生成する ✦</button>
+    <div class="err" id="e1">名前と生年月日を入力してください</div>
+    <div id="pr" style="display:none;margin-top:1.25rem">
+      <div class="step-badge">生成されました ✦</div>
+      <div class="hint-box" style="margin-top:8px">下のテキストを<b>全選択してコピー</b>し、<b>Claudeのチャットに送信</b>してください</div>
+      <div class="prompt-area" id="pb"></div>
+      <button class="btn-gold" onclick="cp()">✦ プロンプトをコピー ✦</button>
+      <button class="btn-ghost" onclick="sw('s2')">コピーしたら → STEP 2へ</button>
+    </div>
+  </div>
+
+  <!-- STEP2 -->
+  <div class="panel" id="s2">
+    <div class="step-badge">STEP 2 — 鑑定文を貼り付け</div>
+    <div class="hint-box" style="margin-top:8px">Claudeが返した <b>{"reading":"..."}</b> のJSON全体を貼り付けてください</div>
+    <div class="fgroup" style="margin-top:1rem"><label class="flabel">JSONを貼り付け</label>
+      <textarea class="json-area" id="ji" placeholder='{"reading":"鑑定文がここに入ります..."}'></textarea>
+    </div>
+    <button class="btn-gold" onclick="render()">✦ 鑑定書を表示する ✦</button>
+    <div class="err" id="e2">有効なJSONを貼り付けてください</div>
+    <button class="btn-ghost" onclick="sw('s1')">← STEP 1に戻る</button>
+  </div>
+
+  <!-- STEP3 -->
+  <div class="panel" id="s3">
+    <div id="cw"><p style="text-align:center;color:#5a3818;padding:2rem;font-size:13px">STEP 2で鑑定書を生成してください</p></div>
+    <button class="btn-ghost" style="margin-top:1rem" onclick="sw('s1')">← 新しい鑑定をする</button>
+  </div>
+</div>
+
+<script>
+const SIGNS=[
+  {name:'山羊座',en:'Capricorn',e:'♑',m:12,d:22,em:1,ed:19},
+  {name:'水瓶座',en:'Aquarius',e:'♒',m:1,d:20,em:2,ed:18},
+  {name:'魚座',en:'Pisces',e:'♓',m:2,d:19,em:3,ed:20},
+  {name:'牡羊座',en:'Aries',e:'♈',m:3,d:21,em:4,ed:19},
+  {name:'牡牛座',en:'Taurus',e:'♉',m:4,d:20,em:5,ed:20},
+  {name:'双子座',en:'Gemini',e:'♊',m:5,d:21,em:6,ed:20},
+  {name:'蟹座',en:'Cancer',e:'♋',m:6,d:21,em:7,ed:22},
+  {name:'獅子座',en:'Leo',e:'♌',m:7,d:23,em:8,ed:22},
+  {name:'乙女座',en:'Virgo',e:'♍',m:8,d:23,em:9,ed:22},
+  {name:'天秤座',en:'Libra',e:'♎',m:9,d:23,em:10,ed:22},
+  {name:'蠍座',en:'Scorpio',e:'♏',m:10,d:23,em:11,ed:21},
+  {name:'射手座',en:'Sagittarius',e:'♐',m:11,d:22,em:12,ed:21},
+];
+function getSun(mo,dy){for(const s of SIGNS){if(s.m>s.em){if((mo===s.m&&dy>=s.d)||(mo===s.em&&dy<=s.ed))return s;}else{if((mo===s.m&&dy>=s.d)||(mo>s.m&&mo<s.em)||(mo===s.em&&dy<=s.ed))return s;}}return SIGNS[0];}
+function getMoon(y,mo,dy){const diff=Math.floor((new Date(y,mo-1,dy)-new Date(2000,0,1))/86400000);const idx=Math.floor(((diff%354)+354)%354/29.5)%12;const n=['牡羊座','牡牛座','双子座','蟹座','獅子座','乙女座','天秤座','蠍座','射手座','山羊座','水瓶座','魚座'];const en=['Aries','Taurus','Gemini','Cancer','Leo','Virgo','Libra','Scorpio','Sagittarius','Capricorn','Aquarius','Pisces'];const e=['♈','♉','♊','♋','♌','♍','♎','♏','♐','♑','♒','♓'];return{name:n[idx],en:en[idx],e:e[idx]};}
+let cd={};
+function gen(){
+  const name=document.getElementById('name').value.trim();
+  const y=parseInt(document.getElementById('yr').value);
+  const mo=parseInt(document.getElementById('mo').value);
+  const dy=parseInt(document.getElementById('dy').value);
+  const bt=document.getElementById('bt').value;
+  if(!name||!y||!mo||!dy){document.getElementById('e1').style.display='block';return;}
+  document.getElementById('e1').style.display='none';
+  const sun=getSun(mo,dy);const moon=getMoon(y,mo,dy);
+  cd={name,y,mo,dy,bt,sun,moon};
+  const prompt=`以下の方の占星術ミニ鑑定文を書いてください。\n\n名前：${name}さん\n生年月日：${y}年${mo}月${dy}日${bt?' / 出生時刻：'+bt:''}\n太陽星座：${sun.name}（${sun.en}）\n月星座：${moon.name}（${moon.en}）\n\n条件：\n・200〜250文字\n・「${name}さん」への呼びかけで始める\n・太陽星座の本質と月星座の内面を組み合わせた内容\n・スピリチュアルで詩的、かつ親しみやすい日本語\n・今この時期へのメッセージを含める\n・最後に短い一言で締める\n\n以下のJSON形式のみで返してください（他のテキスト不要）：\n{"reading":"鑑定文をここに"}`;
+  document.getElementById('pb').textContent=prompt;
+  document.getElementById('pr').style.display='block';
+}
+function cp(){
+  navigator.clipboard.writeText(document.getElementById('pb').textContent).then(()=>{
+    const b=document.querySelectorAll('.btn-gold')[1];
+    b.textContent='✦ コピーしました！';setTimeout(()=>b.textContent='✦ プロンプトをコピー ✦',2000);
+  });
+}
+function render(){
+  const raw=document.getElementById('ji').value.trim();
+  let reading='';
+  try{const p=JSON.parse(raw.replace(/```json|```/g,'').trim());reading=p.reading||p.text||'';if(!reading)throw 0;}
+  catch{document.getElementById('e2').style.display='block';return;}
+  document.getElementById('e2').style.display='none';
+  if(!cd.name){document.getElementById('e2').textContent='先にSTEP 1で情報を入力してください';document.getElementById('e2').style.display='block';return;}
+  document.getElementById('cw').innerHTML=`
+<div class="card">
+  <div class="card-top">
+    <div class="card-brand">LIBERA FINANCE WORKS ✦ 星のミニ鑑定</div>
+    <div class="card-name">${cd.name} さん</div>
+    <div class="card-date">${cd.y}年${cd.mo}月${cd.dy}日生まれ</div>
+    <div class="card-star">✦ ✦ ✦</div>
+  </div>
+  <div class="signs-row">
+    <div class="sign-cell"><div class="sign-lbl">太陽星座</div><div class="sign-emo">${cd.sun.e}</div><div class="sign-nm">${cd.sun.name}</div><div class="sign-en">${cd.sun.en}</div></div>
+    <div class="sign-cell"><div class="sign-lbl">月星座</div><div class="sign-emo">${cd.moon.e}</div><div class="sign-nm">${cd.moon.name}</div><div class="sign-en">${cd.moon.en}</div></div>
+  </div>
+  <div class="card-body"><div class="card-msg">${reading}</div></div>
+  <div class="card-footer"><div class="card-footer-txt">LIBERA FINANCE WORKS — Sachiko Kumagai</div></div>
+</div>`;
+  sw('s3');
+}
+function sw(id){
+  ['s1','s2','s3'].forEach((t,i)=>{
+    document.querySelectorAll('.tab')[i].classList.toggle('active',t===id);
+    document.getElementById(t).classList.toggle('active',t===id);
+  });
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
